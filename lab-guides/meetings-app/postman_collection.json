@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "2b154a1b-e9e1-4e35-b019-8eb2e242a9ae",
+		"name": "Meetings App | mymeetingsapp.herokuapp.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user-management",
+			"item": [
+				{
+					"name": "01 - Register (Token NOT required)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Prashanth Puranik\",\n    \"email\": \"puranik2@example.com\",\n    \"password\": \"puranik2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/auth/register",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registers a new user with given name, email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "02 - Login (Token NOT required)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"aravind@example.com\",\n    \"password\": \"aravind\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Generates a token if user is authenticated successfully, and sends it back"
+					},
+					"response": []
+				},
+				{
+					"name": "03 - Get all registered users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InB1cmFuaWtAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiI2MDI3YWIyMGQzYjFmNjAwMTU5NjAzMTYiLCJpYXQiOjE2MTMyMTI0NzgsImV4cCI6MTYxMzI5ODg3OH0.U9IZ8sUNwm1dTctQc0Gy9mdEQHaI58uZaGT09mjkAjw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/users",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "calendar",
+			"item": [
+				{
+					"name": "04 - View your calendar meetings (meetings for a given day)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MTMyMTEzMDQsImV4cCI6MTYxMzI5NzcwNH0.BGYpVOZaAdgbX5nKJERhzfOlgk-KfEN-O5W_LzGEK04",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/calendar?date=2020-10-28",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"calendar"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2020-10-28"
+								}
+							]
+						},
+						"description": "Returns meetings for a day for logged in user (array of meetings)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "meetings",
+			"item": [
+				{
+					"name": "05 - Search for your meetings by period and description",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MTMyODIzNjgsImV4cCI6MTYxMzM2ODc2OH0.o5_8yf7c-xYw5q5jw6HXnIVW3KESs2a2aX-To-ldebw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/meetings?period=all&search=short%20films",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"meetings"
+							],
+							"query": [
+								{
+									"key": "period",
+									"value": "all"
+								},
+								{
+									"key": "search",
+									"value": "short%20films"
+								}
+							]
+						},
+						"description": "_period_ : 'all'|'past'|'present'|'future'\n_search_ : can be any phrase in the meeting description"
+					},
+					"response": []
+				},
+				{
+					"name": "06 - Add a meeting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MDM4NTk2NDgsImV4cCI6MTYwMzk0NjA0OH0.ZBTmmPBaNigCuEq-ZBL1u9aXH65Z15Taugy0E3vSjt0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Google marketing campaign\",\n    \"description\": \"Increasing brand awareness and spreading information about new products\",\n    \"date\": \"2020-10-28\",\n    \"startTime\": {\n        \"hours\": 9,\n        \"minutes\": 0\n    },\n    \"endTime\": {\n        \"hours\": 10,\n        \"minutes\": 30\n    },\n    \"attendees\": [\n        {\n            \"userId\": \"123456789012345678901249\",\n            \"email\": \"aravind@example.com\"\n        },\n        {\n            \"userId\": \"123456789012345678901250\",\n            \"email\": \"asmita@example.com\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/meetings",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"meetings"
+							]
+						},
+						"description": "Add a new meeting. The logged in user is automatically an attendee.\n\nSample meeting details to send in request body\n----------------------------------------------\n{\n    \"name\": \"Twitter marketing campaign\",\n    \"description\": \"Increasing brand awareness and spreading information about new products\",\n    \"date\": \"2020-10-28\",\n    \"startTime\": {\n        \"hours\": 9,\n        \"minutes\": 0\n    },\n    \"endTime\": {\n        \"hours\": 10,\n        \"minutes\": 30\n    },\n    \"attendees\": [\n        {\n            userId: 123,\n            email: \"john.doe@example.com\"\n        },\n        {\n            userId: 456,\n            email: \"jane.doe@example.com\"\n        }\n    ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "07a - Add attendee to a meeting",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MDM4NTk2NDgsImV4cCI6MTYwMzk0NjA0OH0.ZBTmmPBaNigCuEq-ZBL1u9aXH65Z15Taugy0E3vSjt0"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/meetings/345678901234567890123412?action=add_attendee&userId=123456789012345678901249",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"meetings",
+								"345678901234567890123412"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "add_attendee"
+								},
+								{
+									"key": "userId",
+									"value": "123456789012345678901249"
+								}
+							]
+						},
+						"description": "Add an attendee to a meeting\n\nQuery parameters\n----------------\nEither userId or email of user to be removed as attendee from meeting can be passed.\n\naction=add_attendee&userId=123456789012345678901249\n\nor\n\naction=add_attendee&email=aravind@example.com"
+					},
+					"response": []
+				},
+				{
+					"name": "07b - Excuse yourself from a meeting",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MDM4NTk2NDgsImV4cCI6MTYwMzk0NjA0OH0.ZBTmmPBaNigCuEq-ZBL1u9aXH65Z15Taugy0E3vSjt0"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/meetings/5f99043b6d31455f90963c50?action=remove_attendee",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"meetings",
+								"5f99043b6d31455f90963c50"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "remove_attendee"
+								}
+							]
+						},
+						"description": "Remove logged in user from the meeting\n\nQuery parameters\n----------------\naction=remove_attendee"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teams",
+			"item": [
+				{
+					"name": "08 - View your teams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MTMyODMyMTMsImV4cCI6MTYxMzM2OTYxM30.4ke8dDFRnsY6YAQcTQLzz29YdNtwS9R3ySbuDux7Bgc"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/teams",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"teams"
+							]
+						},
+						"description": "Returns meetings for a day for logged in user (array of meetings)"
+					},
+					"response": []
+				},
+				{
+					"name": "09 - Add a team",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MTMyODMyMTMsImV4cCI6MTYxMzM2OTYxM30.4ke8dDFRnsY6YAQcTQLzz29YdNtwS9R3ySbuDux7Bgc"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Agile team\",\n    \"shortName\": \"agile\",\n    \"description\": \"Team spreading awareness about Agile practices at Zwiggy\",\n    \"members\": [\n        {\n            \"userId\": 123,\n            \"email\": \"john.doe@example.com\"\n        },\n        {\n            \"userId\": 456,\n            \"email\": \"jane.doe@example.com\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/teams",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"teams"
+							]
+						},
+						"description": "Add a new team. The logged in user is automatically added as a member.\n\nSample team details to send in request body\n-------------------------------------------\n{\n    \"name\": \"Agile team\",\n    \"shortName\": \"agile\",\n    \"description\": \"Team spreading awareness about Agile practices at Zwiggy\",\n    \"members\": [\n        {\n            \"userId\": 123,\n            \"email\": \"john.doe@example.com\"\n        },\n        {\n            \"userId\": 456,\n            \"email\": \"jane.doe@example.com\"\n        }\n    ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "10a - Add member to a team",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MDM4NTk2NDgsImV4cCI6MTYwMzk0NjA0OH0.ZBTmmPBaNigCuEq-ZBL1u9aXH65Z15Taugy0E3vSjt0"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/teams/234567890123456789012342?action=add_member&userId=123456789012345678901249",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"teams",
+								"234567890123456789012342"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "add_member"
+								},
+								{
+									"key": "userId",
+									"value": "123456789012345678901249"
+								}
+							]
+						},
+						"description": "Add a member to a team\n\nQuery parameters\n----------------\nEither userId or email of user to be added as member to a team can be passed.\n\naction=add_member&userId=123456789012345678901249\n\nor\n\naction=add_member&email=aravind@example.com"
+					},
+					"response": []
+				},
+				{
+					"name": "10b - Excuse yourself from a team",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyYXZpbmRAZXhhbXBsZS5jb20iLCJ1c2VySWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyNDkiLCJpYXQiOjE2MDM4NTk2NDgsImV4cCI6MTYwMzk0NjA0OH0.ZBTmmPBaNigCuEq-ZBL1u9aXH65Z15Taugy0E3vSjt0"
+							}
+						],
+						"url": {
+							"raw": "https://mymeetingsapp.herokuapp.com/api/teams/5f99043b6d31455f90963c50?action=remove_member",
+							"protocol": "https",
+							"host": [
+								"mymeetingsapp",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"teams",
+								"5f99043b6d31455f90963c50"
+							],
+							"query": [
+								{
+									"key": "action",
+									"value": "remove_member"
+								}
+							]
+						},
+						"description": "Remove logged in user from the team\n\nQuery parameters\n----------------\naction=remove_member"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

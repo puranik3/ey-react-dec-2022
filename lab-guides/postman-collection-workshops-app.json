@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "a166bf93-edc3-4046-8f80-562cd8b42b0b",
+		"name": "Workshops App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /workshops",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/workshops",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /workshop/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/workshops/5f9284ef9d4786827c775415",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops",
+						"5f9284ef9d4786827c775415"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /workshops (single workshop)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"React JS Masterclass\",\n        \"description\": \"<p><strong>React</strong> (also known as <strong>React.js</strong> or <strong>ReactJS</strong>) is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.</p><p>React can be used as a base in the development of single-page or mobile applications. Complex React applications usually require the use of additional libraries for state management, routing, and interaction with an API.</p>\",\n        \"startDate\": \"2019-01-16T12:30:00.000Z\",\n        \"endDate\": \"2019-01-16T12:30:00.000Z\",\n        \"endTime\": \"6:00 pm\",\n        \"location\": {\n            \"address\": \"Tata Elxsi, IT Park\",\n            \"city\": \"Trivandrum\",\n            \"state\": \"Kerala\"\n        },\n        \"modes\": [ \"inPerson\", \"online\" ],\n        \"imageUrl\": \"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/workshops",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /workshops/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{        \n    \"startDate\": \"2020-10-24T12:30:00.000Z\",\n    \"endDate\": \"2020-10-30T12:30:00.000Z\",\n    \"modes\": [\n        \"inPerson\"\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/workshops/5f9284ef9d4786827c775415",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops",
+						"5f9284ef9d4786827c775415"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /workshops/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/workshops/5f92aef4538a496cb7fa2928",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops",
+						"5f92aef4538a496cb7fa2928"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adding new session(s) - PATCH /workshops/:id/sessions",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sequenceId\": 1,\n    \"name\": \"Introduction to Angular JS\",\n    \"speaker\": \"John Doe\",\n    \"duration\": 1,\n    \"level\": \"Basic\",\n    \"description\": \"In this session you will learn about the basics of Angular JS\",\n    \"votes\": 19\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/workshops/5f92cca69d4786827c776c1d/sessions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops",
+						"5f92cca69d4786827c776c1d",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Sessions for a workshop - GET /workshops/:id/sessions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/workshops/5f92cca69d4786827c776c1d/sessions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"workshops",
+						"5f92cca69d4786827c776c1d",
+						"sessions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

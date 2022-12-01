@@ -1,0 +1,9 @@
+.fa {
+    font-size: 2em;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.fa:hover {
+    color: black;
+}
