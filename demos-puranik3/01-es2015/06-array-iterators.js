@@ -18,3 +18,10 @@ numbers.sort(
     }
 );
 console.log( numbers );
+
+// every item has a corresponding item in a new array
+const squaredNumbers = numbers.map( ( item, idx ) => item * item );
+console.log( squaredNumbers );
+
+const sum = numbers.reduce( ( acc, item ) => acc + item, 0 );
+console.log( sum );

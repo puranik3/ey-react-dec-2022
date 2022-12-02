@@ -1,0 +1,46 @@
+<!-- ! -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <!--
+            <div id="message" title="Introduction">
+                Hello <strong>React</strong>
+            </div>
+        -->
+        <div id="root"></div>
+
+        <!-- React core (architect) -->
+        <!-- Used to define the UI -->
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <!-- React DOM (builder) -->
+        <!-- Does the DOM manipulations to render the UI -->
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script>
+            // create a React element (UI definition) - a JS object which describes the UI
+            const helloEl = React.createElement(
+                'div', // type of element
+                { // props (attributes)
+                    id: 'message',
+                    title: 'Introduction'
+                },
+                'Hello ',
+                React.createElement(
+                    'strong',
+                    null, // or {}
+                    'React'
+                )
+            );
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( helloEl );
+        </script>
+    </body>
+</html>
