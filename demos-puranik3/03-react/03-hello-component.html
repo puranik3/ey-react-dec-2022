@@ -5,6 +5,23 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Hello component</title>
+        <style>
+            .btn {
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+            }
+
+            .btn-primary {
+                background-color: navy;
+                color: white;
+            }
+            
+            .btn-secondary {
+                background-color: #444;
+                color: ivory;
+            }
+        </style>
     </head>
     <body>
         <div id="root"></div>
@@ -28,8 +45,8 @@
             const Button = ( props ) => { // receives the "props" object
                 console.log( 'props = ', props );
 
-                return ( // do start the expression returned in the same line!
-                    <button>
+                return ( // do start t{he expression returned in the same line!
+                    <button className={'btn btn-' + props.variant}>
                         {/* Text for the button */}
                         {props.title}
                     </button>
