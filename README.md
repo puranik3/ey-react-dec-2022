@@ -1,5 +1,10 @@
 # React JS training
 
+## Exercises for the day
+- Dec 2
+    - 04 - React Lab guide
+        - Q. 1, 2, 3, 5, 6
+
 ## Videos
 - [Introduction to Webpack](https://corporate-trainings.s3.amazonaws.com/invatron/kh-invatron-react-jul-6-2020/webpack-getting-started.mp4)
 
