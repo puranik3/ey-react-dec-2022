@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hello component</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            /**
+             * Button component
+             * Customization option...
+             * color
+             * text
+             * action on click
+             */
+            // 1. PascalCase for component name
+            // 2. return the element (UI defintion)
+            const Button = () => {
+                return ( // do start the expression returned in the same line!
+                    <button>Hello</button>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            // root.render( <Button></Button> );
+            root.render(
+                <React.Fragment>
+                    <Button />
+                    <Button />
+                </React.Fragment>
+            );
+        </script>
+    </body>
+</html>
