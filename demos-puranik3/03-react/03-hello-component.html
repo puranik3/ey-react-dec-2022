@@ -25,19 +25,30 @@
              */
             // 1. PascalCase for component name
             // 2. return the element (UI defintion)
-            const Button = () => {
+            const Button = ( props ) => { // receives the "props" object
+                console.log( 'props = ', props );
+
                 return ( // do start the expression returned in the same line!
-                    <button>Hello</button>
+                    <button>
+                        {/* Text for the button */}
+                        {props.title}
+                    </button>
                 );
             };
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             // root.render( <Button></Button> );
+            // root.render(
+            //     <React.Fragment>
+            //         <Button />
+            //         <Button />
+            //     </React.Fragment>
+            // );
             root.render(
-                <React.Fragment>
-                    <Button />
-                    <Button />
-                </React.Fragment>
+                <>
+                    <Button title="Cancel" variant="secondary" />
+                    <Button title="Save" variant="primary" />
+                </>
             );
         </script>
     </body>
