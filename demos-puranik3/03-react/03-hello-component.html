@@ -45,12 +45,20 @@
             const Button = ( props ) => { // receives the "props" object
                 console.log( 'props = ', props );
 
+                // const handleClick = () => {
+                //     alert( 'Button was clicked' );
+                // };
+
                 return ( // do start t{he expression returned in the same line!
-                    <button className={'btn btn-' + props.variant}>
+                    <button className={'btn btn-' + props.variant} onClick={props.action}>
                         {/* Text for the button */}
                         {props.title}
                     </button>
                 );
+            };
+
+            const save = () => {
+                alert( 'Your data was saved' );
             };
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
@@ -63,8 +71,8 @@
             // );
             root.render(
                 <>
-                    <Button title="Cancel" variant="secondary" />
-                    <Button title="Save" variant="primary" />
+                    <Button title="Cancel" variant="secondary" action={() => alert( 'Action was cancelled' )} />
+                    <Button title="Save" variant="primary" action={save} />
                 </>
             );
         </script>
