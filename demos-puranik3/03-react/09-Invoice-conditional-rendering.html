@@ -28,6 +28,14 @@
                 payment
             } ) => {
                 // find total
+                let el = null;
+                if( discountCoupon ) {
+                    el = (
+                        <div className="alert alert-info">
+                            Use discount coupon <strong>{discountCoupon}</strong> to get a discount on your next purchase
+                        </div>
+                    );
+                }
 
                 return (
                     <div className="container my-4 card p-4">
@@ -87,6 +95,7 @@
                                 </div>
                             )
                         }
+                        {el}
                     </div>
                 );
             };
