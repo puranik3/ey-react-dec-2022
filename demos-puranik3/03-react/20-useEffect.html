@@ -26,20 +26,64 @@
             };
 
             const WorkshopsList = () => {
+                const [ workshops, setWorkshops ] = React.useState( [] );
+                const [ loading, setLoading ] = React.useState( true );
+
                 // "side-effects" -> things to do when rendering etc. but work that does not involve building the UI
+                // The effect can run...
+                // 1. After the first render
+                // 2. Anytime state / props changes
+
+                // 2nd argument to useEffect - dependencies array
+                // 1. If nothing is provided, the effect runs after first render, anytime state / props changes
+                // 2. If an array is provided, the effect runs after the first render ONLY
+
                 React.useEffect(
-                    () => { // "effect" (effect cannot be made async because async functions return Promises, and the effect function should return another function / return nothing)
+                    // "effect" (effect cannot be made async because async functions return Promises, and the effect function should return another function / return nothing)
+                    () => {
                         const helper = async () => {
+                            setLoading( true );
+                            
                             const workshops = await getWorkshops();
-                            console.log( workshops );
-                        }
+                            
+                            setWorkshops( workshops );
+                            setLoading( false );
+                        };
 
                         helper();
-                    }
+                    },
+                    []
                 );
 
                 return (
-                    <div>Work in progress</div>
+                    <div className="container my-4">
+                        <h1>List of workshops</h1>
+                        <hr />
+                        {
+                            loading && (
+                                <div className="d-flex justify-content-center">
+                                    <div className="spinner-border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        {
+                            !loading && workshops.length !== 0 && (
+                                <div className="row">
+                                    {
+                                        workshops.map(
+                                            workshop => (
+                                                <div className="col-12 col-lg-4" key={workshop.id}>
+                                                    {workshop.name}
+                                                </div>
+                                            )
+                                        )
+                                    }
+                                </div>
+                            )
+                        }
+                    </div>
                 );
             };
 
