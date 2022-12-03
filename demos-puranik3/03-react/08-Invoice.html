@@ -28,7 +28,7 @@
                 payment
             } ) => {
                 return (
-                    <div className="container my-4">
+                    <div className="container my-4 card p-4">
                         <h2 clasName="">{store}</h2>
                         <div>
                             Invoice #{invoiceNumber} | Date: {new Date( date ).toDateString()}
@@ -36,7 +36,37 @@
                         <div>
                             Customer name: {customerName} | customer id: {customerId} 
                         </div>
-                        
+                        {/* EXERCISE: display the items in a table  */}
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    items.map(
+                                        item => (
+                                            <tr key={item.id}>
+                                                <td>{item.name}</td>
+                                                <td>{item.quantity}</td>
+                                                <td>{item.price}</td>
+                                                <td>{item.quantity * item.price}</td>
+                                            </tr>
+                                        )
+                                    )
+                                }
+                                <tr>
+                                    <td colSpan={3}></td>
+                                    <td>
+                                        {/* grand total - suggested to use array reduce() */}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 );
             };
