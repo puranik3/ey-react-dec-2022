@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .btn {
+                padding: 10px;
+                border: none;
+                border-radius: 4px;
+            }
+
+            .btn-primary {
+                background-color: navy;
+                color: white;
+            }
+            
+            .btn-secondary {
+                background-color: #777;
+                color: ivory;
+            }
+
+            .btn-group .btn {
+                border-radius: 0;
+            }
+
+            .btn-group .btn:first-child {
+                border-top-left-radius: 4px;
+                border-bottom-left-radius: 4px;
+            }
+            
+            .btn-group .btn:last-child {
+                border-top-right-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            const Button = ( { title, action, variant, setActive } ) => {
+                const onClick = ( event ) => {
+                    setActive();
+                    action( event );
+                };
+
+                return (
+                    <button className={'btn btn-' + variant} onClick={onClick}>
+                        {title}
+                    </button>
+                );
+            };
+
+            const ButtonGroup = ( { buttons } ) => {
+                // useState() returns an array - [ state, setState ]
+                const [ active, setActive ] = React.useState( 0 );
+
+                return (
+                    <span className="btn-group">
+                        {
+                            buttons.map(
+                                ( button, idx ) => (
+                                    <Button
+                                        key={button.title}
+                                        variant={idx === active ? 'primary' : 'secondary'}
+                                        title={button.title}
+                                        action={button.action}
+                                        setActive={() => setActive( idx )}
+                                    />
+                                )
+                            )
+                        }
+                    </span>
+                );
+            };
+            
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <ButtonGroup buttons={[
+                    { title: 'Cancel', action: () => alert( 'Action was cancelled' ) },
+                    { title: 'Save',  action: () => alert( 'Your data was saved' ) },
+                    { title: 'Submit', action: () => alert( 'Your data was submitted' ) }
+                ]} />
+            );
+        </script>
+    </body>
+</html>

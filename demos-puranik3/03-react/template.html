@@ -17,22 +17,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
 
         <script type="text/babel">
-            const btnPrimary = {
-                backgroundColor: 'navy',
-                color: 'white'
-            };
             
-            const btnSecondary = {
-                backgroundColor: '#444',
-                color: 'ivory'
-            };
-
-            const getStyle = (type) => {
-                return type === 'btnPrimary' ? btnPrimary : btnSecondary;
-            }
-
-            const btn1 = <button style={{ ...btn, ...getStyle('btnPrimary') }}>Save</button>;
-            const btn2 = <button style={{ ...btn, ...getStyle('btnSecondary') }}>Cancel</button>
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             root.render(  );
