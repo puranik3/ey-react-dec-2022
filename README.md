@@ -4,6 +4,9 @@
 - Dec 2
     - 04 - React Lab guide
         - Q. 1, 2, 3, 5, 6
+- Dec 3
+    - 04 - React Lab guide
+        - Q. 7. 9, 10, 12, 13, 14
 
 ## Videos
 - [Introduction to Webpack](https://corporate-trainings.s3.amazonaws.com/invatron/kh-invatron-react-jul-6-2020/webpack-getting-started.mp4)
