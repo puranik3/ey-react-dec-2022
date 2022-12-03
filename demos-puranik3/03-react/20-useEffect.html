@@ -28,6 +28,7 @@
             const WorkshopsList = () => {
                 const [ workshops, setWorkshops ] = React.useState( [] );
                 const [ loading, setLoading ] = React.useState( true );
+                const [ error, setError ] = React.useState( null );
 
                 // "side-effects" -> things to do when rendering etc. but work that does not involve building the UI
                 // The effect can run...
@@ -35,8 +36,8 @@
                 // 2. Anytime state / props changes
 
                 // 2nd argument to useEffect - dependencies array
-                // 1. If nothing is provided, the effect runs after first render, anytime state / props changes
-                // 2. If an array is provided, the effect runs after the first render ONLY
+                // 1. If nothing is provided, the effect runs after first render, and anytime the state / props changes
+                // 2. If an empty array is provided, the effect runs after the first render ONLY
 
                 React.useEffect(
                     // "effect" (effect cannot be made async because async functions return Promises, and the effect function should return another function / return nothing)
@@ -44,9 +45,13 @@
                         const helper = async () => {
                             setLoading( true );
                             
-                            const workshops = await getWorkshops();
-                            
-                            setWorkshops( workshops );
+                            try {
+                                const workshops = await getWorkshops();
+                                setWorkshops( workshops );
+                            } catch( error ) {
+                                setError( error );
+                            }
+
                             setLoading( false );
                         };
 
@@ -69,7 +74,12 @@
                             )
                         }
                         {
-                            !loading && workshops.length !== 0 && (
+                            !loading && error && (
+                                <div className="alert alert-danger">{error.message}</div>
+                            )
+                        }
+                        {
+                            !loading && !error && (
                                 <div className="row">
                                     {
                                         workshops.map(
