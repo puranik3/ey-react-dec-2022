@@ -33,8 +33,26 @@
                 color: 'ivory'
             };
 
+            const btn2Type = 'primary';
+
+            let cancelBtnStyle = {
+                ...btn
+            };
+
+            if( btn2Type === 'primary' ) {
+                cancelBtnStyle = {
+                    ...cancelBtnStyle,
+                    ...btnPrimary
+                };
+            } else {
+                cancelBtnStyle = {
+                    ...cancelBtnStyle,
+                    ...btnSecondary
+                };
+            }
+
             const btn1 = <button style={{ ...btn, ...btnPrimary }}>Save</button>;
-            const btn2 = <button style={{ ...btn, ...btnSecondary }}>Cancel</button>;
+            const btn2 = <button style={{ ...btn, ...cancelBtnStyle }}>Cancel</button>;
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             root.render( 
