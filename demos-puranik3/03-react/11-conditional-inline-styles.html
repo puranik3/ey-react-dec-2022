@@ -17,6 +17,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
 
         <script type="text/babel">
+            const btn = {
+                padding: '0.25em',
+                border: 'none',
+                borderRadius: '4px'
+            };
+
             const btnPrimary = {
                 backgroundColor: 'navy',
                 color: 'white'
@@ -35,7 +41,12 @@
             const btn2 = <button style={{ ...btn, ...getStyle('btnSecondary') }}>Cancel</button>
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
-            root.render(  );
+            root.render(
+                <>
+                    {btn1}
+                    {btn2}
+                </>
+            );
         </script>
     </body>
 </html>
