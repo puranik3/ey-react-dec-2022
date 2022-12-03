@@ -48,6 +48,10 @@
                 ) : null
             };
 
+            /**
+             * Since Panelheading and PanelBody need access to a shared state (Panelheading influences the PanelBody), we store the common state in the common acestor - i.e. Panel
+             * The one-way data flow of props (top-down flow) requires this arrangement
+             */
             const Panel = ( { title, body } ) => {
                 const [ show, setShow ] = React.useState( true );
 
