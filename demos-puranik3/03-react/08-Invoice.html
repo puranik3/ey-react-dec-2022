@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            const Invoice = ( {
+                invoiceNumber,
+                customerId,
+                customerName,
+                store,
+                date,
+                discountCoupon,
+                items,
+                payment
+            } ) => {
+                return (
+                    <div className="container my-4">
+                        <h2 clasName="">{store}</h2>
+                        <div>
+                            Invoice #{invoiceNumber} | Date: {new Date( date ).toDateString()}
+                        </div>
+                        <div>
+                            Customer name: {customerName} | customer id: {customerId} 
+                        </div>
+                        
+                    </div>
+                );
+            };
+
+            const johnInvoiceProps = {
+                invoiceNumber: 1234,
+                customerId: 2345,
+                customerName: 'John Doe',
+                store: 'More Mega store',
+                date: '2022-12-03',
+                discountCoupon: 'NEW15',
+                items: [
+                    { name: 'Soap', price: 30, quantity: 2, id: 1 },
+                    { name: 'Chips', price: 25, quantity: 3, id: 2 },
+                    { name: 'Biscuits', price: 20, quantity: 4, id: 3 },
+                    { name: 'Rice', price: 60, quantity: 1, id: 4 }
+                ]
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <Invoice
+                    {...johnInvoiceProps }
+                    payment="PayTM"
+                    invoiceNumber={3456}
+                />
+            );
+        </script>
+    </body>
+</html>

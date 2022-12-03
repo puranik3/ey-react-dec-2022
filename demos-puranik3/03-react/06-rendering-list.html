@@ -56,22 +56,31 @@
             };
 
             const ButtonGroup = ( { buttons } ) => {
+                // we render an array of React element (array of Button elements)
+
                 // const buttonEls = [
                 //     <Button title={buttons[0].title} variant={buttons[0].variant} action={buttons[0].action} />,
                 //     <Button title={buttons[1].title} variant={buttons[1].variant} action={buttons[1].action} />,
                 //     <Button title={buttons[2].title} variant={buttons[2].variant} action={buttons[2].action} />
                 // ];
 
-                const buttonEls = buttons.map(
-                    button => <Button title={button.title} variant={button.variant} action={button.action} />
-                );
+                // const buttonEls = buttons.map(
+                //     button => <Button title={button.title} variant={button.variant} action={button.action} />
+                // );
 
                 return (
                     <span className="btn-group">
                         {/*buttonEls*/}
                         {
                             buttons.map(
-                                button => <Button title={button.title} variant={button.variant} action={button.action} />
+                                button => (
+                                    <Button
+                                        key={button.title}
+                                        title={button.title}
+                                        variant={button.variant}
+                                        action={button.action}
+                                    />
+                                )
                             )
                         }
                     </span>
