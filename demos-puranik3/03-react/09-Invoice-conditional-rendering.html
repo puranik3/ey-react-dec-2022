@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            const Invoice = ( {
+                invoiceNumber,
+                customerId,
+                customerName,
+                store,
+                date,
+                discountCoupon,
+                items,
+                payment
+            } ) => {
+                // find total
+
+                return (
+                    <div className="container my-4 card p-4">
+                        <h2 clasName="">{store}</h2>
+                        <div>
+                            Invoice #{invoiceNumber} | Date: {new Date( date ).toDateString()}
+                        </div>
+                        <div>
+                            Customer name: {customerName} | customer id: {customerId} 
+                        </div>
+                        {/* EXERCISE: display the items in a table  */}
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    items.map(
+                                        ( item/*, index */ ) => (
+                                            <tr key={item.key}>
+                                                <td>{item.name}</td>
+                                                <td>{item.quantity}</td>
+                                                <td>{item.price}</td>
+                                                <td>{item.quantity * item.price}</td>
+                                            </tr>
+                                        )
+                                    )
+                                }
+                                <tr>
+                                    <td colSpan={3}></td>
+                                    <td>
+                                        {
+                                            items.reduce( ( acc, item ) => acc + item.price * item.quantity, 0 )
+                                        }
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {
+                            /*
+                            discountCoupon ? (
+                                <div className="alert alert-info">
+                                    Use discount coupon <strong>{discountCoupon}</strong> to get a discount on your next purchase
+                                </div>
+                            ) : null
+                            */
+                        }
+                        {
+                            discountCoupon && (
+                                <div className="alert alert-info">
+                                    Use discount coupon <strong>{discountCoupon}</strong> to get a discount on your next purchase
+                                </div>
+                            )
+                        }
+                    </div>
+                );
+            };
+
+            const johnInvoiceProps = {
+                invoiceNumber: 1234,
+                customerId: 2345,
+                customerName: 'John Doe',
+                store: 'More Mega store',
+                date: '2022-12-03',
+                discountCoupon: 'NEW15',
+                items: [
+                    { name: 'Soap', price: 30, quantity: 2, id: 1 },
+                    { name: 'Chips', price: 25, quantity: 3, id: 2 },
+                    { name: 'Biscuits', price: 20, quantity: 4, id: 3 },
+                    { name: 'Rice', price: 60, quantity: 1, id: 4 }
+                ]
+            };
+            
+            const janeInvoiceProps = {
+                invoiceNumber: 1235,
+                customerId: 2344,
+                customerName: 'Jane Doe',
+                store: 'More Mega store',
+                date: '2022-12-03',
+                items: [
+                    { name: 'Soap', price: 30, quantity: 2, id: 1 },
+                    { name: 'Chips', price: 25, quantity: 3, id: 2 },
+                    { name: 'Biscuits', price: 20, quantity: 4, id: 3 },
+                    { name: 'Rice', price: 60, quantity: 1, id: 4 }
+                ]
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <>
+                    <Invoice
+                        {...johnInvoiceProps }
+                        payment="PayTM"
+                        invoiceNumber={3456}
+                    />
+                    <Invoice
+                        {...janeInvoiceProps }
+                    />
+                </>
+            );
+        </script>
+    </body>
+</html>
