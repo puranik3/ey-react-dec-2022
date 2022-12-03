@@ -47,12 +47,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
 
         <script type="text/babel">
-            const Button = ( { title, action, variant, setActive } ) => {
-                const onClick = ( event ) => {
-                    setActive();
-                    action( event );
-                };
-
+            const Button = ( { title, action, variant, onClick } ) => {
                 return (
                     <button className={'btn btn-' + variant} onClick={onClick}>
                         {title}
@@ -73,8 +68,7 @@
                                         key={button.title}
                                         variant={idx === active ? 'primary' : 'secondary'}
                                         title={button.title}
-                                        action={button.action}
-                                        setActive={() => setActive( idx )}
+                                        onClick={() => { setActive( idx ); button.action() }}
                                     />
                                 )
                             )
