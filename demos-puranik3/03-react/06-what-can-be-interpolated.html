@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            // What can go within {} "inside" the element (as content)
+            // 1. React element
+            // 2. string
+            // 3. number
+            // 4. boolean and falsy values -> do not show anything
+            // 5. An array with items of the above kind
+            const spanEl = <span>I am a span</span>;
+            const div1El = <div>{spanEl}</div>;
+
+            const title = 'I am a string title'
+            const div2El = <div>{title}</div>;
+
+            const quantity = 15;
+            const div3El = <div>{quantity}</div>
+
+            const isWinter = true;
+            const div4El = <div>{isWinter}</div>;
+
+            const chequeAmounts = [ 10000, 'Twenty thousand', <strong>30000</strong> ];
+            const fragEl = <>{chequeAmounts}</>
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <section>
+                    {div1El}
+                    {div2El}
+                    {div3El}
+                    {div4El}
+                    {fragEl}
+                </section>
+            );
+        </script>
+    </body>
+</html>
