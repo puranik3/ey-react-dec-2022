@@ -37,6 +37,9 @@
             const chequeAmounts = [ 10000, 'Twenty thousand', <strong>30000</strong> ];
             const fragEl = <>{chequeAmounts}</>
 
+            const john = { name: 'John', age: 32 };
+            const div5El = <div>{john}</div>; // error - object cannot be interpolated (Objects are not valid as a React child)
+
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             root.render(
                 <section>
@@ -45,6 +48,7 @@
                     {div3El}
                     {div4El}
                     {fragEl}
+                    {/*div5El*/}
                 </section>
             );
         </script>
