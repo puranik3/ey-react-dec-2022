@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            const Counter = () => {
+                let [ counter, setCounter ] = React.useState( 0 );
+
+                const decrement = () => {
+                    setCounter( counter - 1 );
+                    setCounter( counter - 1 );
+                };
+
+                const increment = () => {
+                    // The setter is an asynchronous function. The state change happens later. The render is called once after these changes.
+                    setCounter( counter + 1 ); // setCounter( 1 ) and counter = 0 (still)
+                    setCounter( counter + 1 ); // setCounter( 1 ) and counter = 0 (still)
+                };
+
+                return (
+                    <>
+                        <button onClick={decrement}>-</button>
+                        counter = {counter}
+                        <button onClick={increment}>+</button>
+                    </>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <>
+                    <Counter />
+                    <Counter />
+                </>
+            );
+        </script>
+    </body>
+</html>
