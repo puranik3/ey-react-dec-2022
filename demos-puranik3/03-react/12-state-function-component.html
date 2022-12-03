@@ -68,7 +68,7 @@
                                         key={button.title}
                                         variant={idx === active ? 'primary' : 'secondary'}
                                         title={button.title}
-                                        onClick={() => { setActive( idx ); button.action() }}
+                                        onClick={() => { setActive( idx ); button.action(); }}
                                     />
                                 )
                             )

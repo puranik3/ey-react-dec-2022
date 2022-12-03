@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            let x = 1;
+
+            const Counter = () => {
+                // [ state, setState ];
+                // initial state value passed to useState() is used only during the first render
+                let [ counter, setCounter ] = React.useState( 0 );
+
+                const decrement = () => {
+                    setCounter( counter - 1 );
+                };
+
+                const increment = () => {
+                    setCounter( counter + 1 );
+                };
+
+                const incX = () => {
+                    x += 10;
+                    setCounter( counter ); // no change in state -  no re-render
+                };
+
+                const incXAndCounter = () => {
+                    x += 10;
+                    setCounter( counter + 1 ); // change in state - re-render
+                };
+
+                return (
+                    <>
+                        <button onClick={decrement}>-</button>
+                        counter = {counter}; x = {x}
+                        <button onClick={increment}>+</button>
+                        <button onClick={incX}>+x</button>
+                        <button onClick={incXAndCounter}>+x and +counter</button>
+                    </>
+                )
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <>
+                    <Counter />
+                    <Counter />
+                </>
+            );
+        </script>
+    </body>
+</html>
