@@ -18,11 +18,13 @@
 
         <script type="text/babel">
             const Counter = () => {
+                console.log( 'rendering' );
+
                 let [ counter, setCounter ] = React.useState( 0 );
 
                 const decrement = () => {
-                    setCounter( counter - 1 );
-                };
+                    setCounter( counter - 1 ); // setCounter( 0 ); counter = -1
+                }
 
                 const increment = () => {
                     setCounter( counter + 1 );
@@ -34,7 +36,7 @@
                         counter = {counter}
                         <button onClick={increment}>+</button>
                     </>
-                )
+                );
             };
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );

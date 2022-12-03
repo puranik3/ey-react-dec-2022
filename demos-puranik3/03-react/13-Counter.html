@@ -23,21 +23,22 @@
                 // [ state, setState ];
                 // initial state value passed to useState() is used only during the first render
                 let [ counter, setCounter ] = React.useState( 0 );
+                console.log( 'Counter' );
 
-                const decrement = () => {
-                    setCounter( counter - 1 );
+                const decrement = function() {
+                    setCounter( counter-- );
                 };
 
-                const increment = () => {
+                const increment = function() {
                     setCounter( counter + 1 );
                 };
 
-                const incX = () => {
+                const incX = function() {
                     x += 10;
                     setCounter( counter ); // no change in state -  no re-render
                 };
 
-                const incXAndCounter = () => {
+                const incXAndCounter = function() {
                     x += 10;
                     setCounter( counter + 1 ); // change in state - re-render
                 };
