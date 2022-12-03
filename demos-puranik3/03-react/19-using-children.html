@@ -49,7 +49,8 @@
             };
 
             /**
-             * "children" is a prop that gathers all react elements within the open-close tags
+             * "children" is a prop that gathers all react elements within the open-close tags into an array (or single element if there is only 1 child)
+             * We can use it in a component which itself does not know what UI to show (and the parent passes the UI to it)
              */
             const Panel = ( { title, body, children } ) => {
                 console.log( children );

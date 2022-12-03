@@ -26,12 +26,25 @@
             };
 
             const WorkshopsList = () => {
-                
-            }
+                // "side-effects" -> things to do when rendering etc. but work that does not involve building the UI
+                React.useEffect(
+                    () => { // "effect" (effect cannot be made async because async functions return Promises, and the effect function should return another function / return nothing)
+                        const helper = async () => {
+                            const workshops = await getWorkshops();
+                            console.log( workshops );
+                        }
 
+                        helper();
+                    }
+                );
+
+                return (
+                    <div>Work in progress</div>
+                );
+            };
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
-            root.render(  );
+            root.render( <WorkshopsList /> );
         </script>
     </body>
 </html>
