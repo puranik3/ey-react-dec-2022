@@ -27,6 +27,8 @@
                 items,
                 payment
             } ) => {
+                // find total
+
                 return (
                     <div className="container my-4 card p-4">
                         <h2 clasName="">{store}</h2>
@@ -49,8 +51,8 @@
                             <tbody>
                                 {
                                     items.map(
-                                        item => (
-                                            <tr key={item.id}>
+                                        ( item/*, index */ ) => (
+                                            <tr key={item.key}>
                                                 <td>{item.name}</td>
                                                 <td>{item.quantity}</td>
                                                 <td>{item.price}</td>
@@ -62,7 +64,9 @@
                                 <tr>
                                     <td colSpan={3}></td>
                                     <td>
-                                        {/* grand total - suggested to use array reduce() */}
+                                        {
+                                            items.reduce( ( acc, item ) => acc + item.price * item.quantity, 0 )
+                                        }
                                     </td>
                                 </tr>
                             </tbody>
