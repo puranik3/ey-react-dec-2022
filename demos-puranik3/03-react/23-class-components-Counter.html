@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            class Counter extends React.Component {
+                state = {
+                    counter: this.props.initialValue,
+                    x: 100
+                };
+
+                // constructor( props ) {
+                //     super( props ); // this.props = props
+
+                //     this.state = {
+
+                //     }
+                // }
+
+                increment = () => {
+                    console.log( this );
+                    // also has a function form (apart from the object form)
+                    // other properties like 'x' (apart from 'counter') will maintain current value, and ONLY 'counter' will change
+                    this.setState({
+                        counter: this.state.counter + 1
+                    });
+                }
+
+                decrement = () => {
+                    console.log( this );
+                    this.setState({
+                        counter: this.state.counter - 1
+                    });
+                }
+
+                render() {
+                    const { counter, x } = this.state;
+                    // const {  } = this.props;
+
+                    return (
+                        <>
+                            <button onClick={this.decrement}>-</button>
+                            counter = {counter}; x = {x}
+                            <button onClick={this.increment}>+</button>
+                        </>
+                    );
+                }
+
+            }
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <Counter initialValue={100} /> );
+        </script>
+    </body>
+</html>
