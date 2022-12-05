@@ -18,6 +18,7 @@
 
         <script type="text/babel">
             class Counter extends React.Component {
+                // state SHOULD be an object (for class components)
                 state = {
                     counter: this.props.initialValue,
                     x: 100
@@ -31,6 +32,7 @@
                 //     }
                 // }
 
+                // IMPORTANT: For methods passed as reference to React (like event handlers), we need to make sure their "this" is set up correctly. One way to ensure this is to use class properties syntax (like using arrow functions to set up such methods).
                 increment = () => {
                     console.log( this );
                     // also has a function form (apart from the object form)

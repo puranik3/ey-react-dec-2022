@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.js"></script>
+
+        <script type="text/babel">
+            const getWorkshops = async ( _page ) => {
+                const response = await axios.get(
+                    `https://workshops-server.herokuapp.com/workshops`,
+                    {
+                        params: {
+                            // _page: _page
+                            _page
+                        }
+                    }
+                );
+                return response.data;
+            };
+
+            class WorkshopsList extends React.Component {
+                state = {
+                    workshops: [],
+                    loading: true,
+                    error: null,
+                    _page: 1
+                };
+
+                previous = () => {
+                    const { _page } = this.state;
+
+                    if( _page <= 1 ) {
+                        return;
+                    };
+
+                    // function form of this.setState()
+                    this.setState(
+                        state => {
+                            return {
+                                _page: state._page - 1
+                            };
+                        }
+                    );
+                };
+                
+                next = () => {
+                    const { workshops, _page } = this.state;
+                    
+                    if( workshops.length === 0 ) {
+                        return;
+                    }
+
+                    // the more appropriate one is the function form of this.setState()
+                    this.setState({
+                        _page: _page + 1
+                    })
+                };
+
+                async fetchWorkshops() {
+                    const { _page } = this.state;
+                    
+                    this.setState({
+                        loading: true
+                    });
+                    
+                    try {
+                        const workshops = await getWorkshops( _page );
+                        this.setState({
+                            workshops,
+                            loading: false
+                        });
+                    } catch( error ) {
+                        this.setState({
+                            error,
+                            loading: false
+                        });
+                    }
+                }
+
+                // called AFTER the FIRST render (ONLY)
+                componentDidMount() {
+                    this.fetchWorkshops();
+                }
+
+                render() {
+                    const { workshops, loading, error, _page } = this.state;
+
+                    return (
+                        <div className="container my-4">
+                            <h1>List of workshops</h1>
+                            <hr />
+                            <div className="my-2">
+                                <button className="btn btn-primary btn-sm me-2" onClick={this.previous}>Previous</button>
+                                <button className="btn btn-primary btn-sm" onClick={this.next}>Next</button>
+                            </div>
+                            <div className="my-2">You are on page {_page}</div>
+                            {
+                                loading && (
+                                    <div className="d-flex justify-content-center">
+                                        <div className="spinner-border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                !loading && error && (
+                                    <div className="alert alert-danger">{error.message}</div>
+                                )
+                            }
+                            {
+                                !loading && !error && workshops.length === 0 && (
+                                    <div className="alert alert-info">That's all folks!</div>
+                                )
+                            }
+                            {
+                                !loading && !error && workshops.length !== 0 && (
+                                    <>
+                                        <div className="row">
+                                            {
+                                                workshops.map(
+                                                    workshop => (
+                                                        <div className="col-12 col-lg-4" key={workshop.id}>
+                                                            {workshop.name}
+                                                        </div>
+                                                    )
+                                                )
+                                            }
+                                        </div>
+                                    </>
+                                )
+                            }
+                        </div>
+                    );
+                }
+            }
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <WorkshopsList /> );
+        </script>
+    </body>
+</html>
