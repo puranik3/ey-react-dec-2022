@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.js"></script>
+
+        <script type="text/babel">
+            // This HAS to be written as a class component
+            class ErrorBoundary extends React.Component {
+                state = {
+                    error: null
+                };
+
+                componentDidCatch( error ) {
+                    console.log( 'inside error boundary : ', error.message );
+                    this.setState({
+                        error
+                    });
+                }
+
+                render() {
+                    const { error } = this.state;
+
+                    return error ? error.message : this.props.children;
+                }
+            }
+
+            const Child = ( { throwError, name } ) => {
+                if( throwError ) {
+                    throw new Error( 'Some error occured' );
+                }
+
+                return (
+                    <div>I am {name}</div>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( 
+                <>
+                    <ErrorBoundary>
+                        <Child throwError={false} name="Jack" />
+                    </ErrorBoundary>
+                    <ErrorBoundary>
+                        <Child throwError={true} name="Jill" />
+                    </ErrorBoundary>
+                </>
+            );
+        </script>
+    </body>
+</html>

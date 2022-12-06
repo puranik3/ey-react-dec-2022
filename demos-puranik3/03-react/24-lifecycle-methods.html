@@ -72,7 +72,7 @@
 
                 async fetchWorkshops() {
                     const { _page } = this.state;
-                    
+
                     this.setState({
                         loading: true
                     });
@@ -84,16 +84,49 @@
                             loading: false
                         });
                     } catch( error ) {
-                        this.setState({
-                            error,
-                            loading: false
-                        });
+                        this.setState(
+                            {
+                                error,
+                                loading: false
+                            },
+                            () => {
+                                console.log( 'callback after setting state' );    
+                            }
+                        );
                     }
                 }
 
+                // MOUNTING PHASE
                 // called AFTER the FIRST render (ONLY)
+                // FOR COMPARISON: Similar to passing [] as dependency to useEffect()
                 componentDidMount() {
                     this.fetchWorkshops();
+                }
+
+                // UPDATE PHASE
+                // When state change is initiated, but BEFORE the state changes / parent re-rendered and passed same/different props
+                shouldComponentUpdate( newProps, newState ) {
+                    console.log( 'current state = ', this.state );
+                    console.log( 'new state = ', newState );
+
+                    return true; // true indicates to React that it must re-render the UI, false indicates to React NOT to re-render the UI
+                }
+
+                // called AFTER a state / prop change
+                // FOR COMPARISON: Similar to passing [ _page ] as dependenct to useEffect
+                componentDidUpdate( oldProps, oldState ) {
+                    if( this.state._page !== oldState._page ) {
+                        this.fetchWorkshops();
+                    }
+
+                    if( this.state.filterKey !== oldState.filterKey || this.state.workshops !== oldState.workshops ) {
+                        // filtering logic
+                    }
+                }
+
+                // UNMOUNTING PHASE
+                componentWillUnmount() {
+                    console.log( 'component going out of the DOM' );
                 }
 
                 render() {
@@ -151,6 +184,13 @@
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             root.render( <WorkshopsList /> );
+
+            setTimeout(
+                () => {
+                    root.render( <div>That's all folks!</div> );
+                },
+                20000
+            );
         </script>
     </body>
 </html>

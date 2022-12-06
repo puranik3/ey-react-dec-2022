@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script type="text/babel">
+            const RegistrationAndLogin = () => {
+                const [ isRegistration, setRegistration ] = React.useState( true );
+
+                const showLogin = ( event ) => {
+                    event.preventDefault(); // prevent browser form submission
+
+                    setRegistration( false );
+                };
+
+                const login = ( event ) => {
+                    event.preventDefault();
+
+                    alert( 'Login' );
+                };
+
+                return (
+                    <>
+                    {
+                        isRegistration ? (
+                            <div>
+                                <h1>Register</h1>
+                                <hr />
+                                <form action="/register" method="POST" onSubmit={showLogin} key="form">
+                                    <div>
+                                        <label htmlFor="email">Email</label>
+                                        <input type="email" id="email" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="password">Password</label>
+                                        <input type="password" id="password" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="confirm-password">Confirm Password</label>
+                                        <input type="password" id="confirm-password" />
+                                    </div>
+                                    
+                                    <button type="submit" key="action-button">Register</button>
+                                </form>
+                            </div>
+                        ) : (
+                            <div>
+                                <h1>Login</h1>
+                                <hr />
+                                <form action="/login" method="POST" onSubmit={( event ) => login( event )} key="form">
+                                    <div>
+                                        <label htmlFor="email">Email</label>
+                                        <input type="email" id="email" />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="password">Password</label>
+                                        <input type="password" id="password" />
+                                    </div>
+                                    
+                                    <button type="submit" key="action-button">Login</button>
+                                </form>
+                            </div>
+                        )
+                    }
+                    </>
+                );
+            };
+
+            ReactDOM.render( <RegistrationAndLogin />, document.getElementById( 'root' ) );
+        </script>
+    </body>
+</html>
