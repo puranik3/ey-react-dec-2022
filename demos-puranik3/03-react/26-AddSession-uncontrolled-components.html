@@ -21,7 +21,14 @@
         <script type="text/babel">
             const AddWorkshop = () => {
                 const sequenceIdRef = React.useRef();
+                const nameRef = React.useRef();
+                const speakerRef = React.useRef();
+                const durationRef = React.useRef();
+                const levelRef = React.useRef();
+                const abstractRef = React.useRef();
+
                 const [ sequenceIdErr, setSequenceIdErr ] = React.useState( '' );
+                const [ nameErr, setNameErr ] = React.useState( '' );
 
                 const validateSequenceId = () => {
                     let errorMessage = '';
@@ -39,18 +46,38 @@
 
                     return errorMessage === '';
                 };
+                
+                const validateName = () => {
+                    let errorMessage = '';
+                    const value = nameRef.current.value;
+
+                    if( value === '' ) {
+                        errorMessage += 'Name is required';
+                    }
+
+                    setNameErr( errorMessage );
+
+                    return errorMessage === '';
+                };
 
                 const addSession = ( event ) => {
                     event.preventDefault();
                     let isValid = true;
 
                     isValid = validateSequenceId() && isValid;
-                    // isValid = validateName() && isValid;
+                    isValid = validateName() && isValid;
 
                     if( isValid ) {
                         // sequenceIdRef.current is the reference to the underlying DOM node
+                        // NOTE: better to also call trim() on the value
                         const session = {
-                            sequenceId: sequenceIdRef.current.value
+                            sequenceId: +sequenceIdRef.current.value,
+                            name: nameRef.current.value,
+                            speaker: speakerRef.current.value,
+                            duration: +durationRef.current.value,
+                            level: levelRef.current.value,
+                            abstract: abstractRef.current.value,
+                            upvoteCount: 0
                         };
 
                         console.log( session );
@@ -73,6 +100,64 @@
                                 />
                                 <small className="text-danger">{sequenceIdErr}</small>
                             </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="name" className="form-label">Name of the session</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    ref={nameRef}
+                                />
+                                <small className="text-danger">{nameErr}</small>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="speaker" className="form-label">Speaker</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="speaker"
+                                    ref={speakerRef}
+                                />
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="level" className="form-label">Level</label>
+                                <select
+                                    type="text"
+                                    className="form-control"
+                                    id="level"
+                                    ref={levelRef}
+                                    defaultValue="1"
+                                >
+                                    <option value="">-- Select the level --</option>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="duration" className="form-label">Duration (in hours)</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="duration"
+                                    ref={durationRef}
+                                    defaultValue="1"
+                                />
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="abstract" className="form-label">Describe the session</label>
+                                <textarea
+                                    className="form-control"
+                                    id="abstract"
+                                    ref={abstractRef}
+                                ></textarea>
+                            </div>
+                            
                             <button className="btn btn-primary">Add session</button>
                         </form>
                     </div>
