@@ -21,17 +21,41 @@
         <script type="text/babel">
             const AddWorkshop = () => {
                 const sequenceIdRef = React.useRef();
+                const [ sequenceIdErr, setSequenceIdErr ] = React.useState( '' );
+
+                const validateSequenceId = () => {
+                    let errorMessage = '';
+                    const value = sequenceIdRef.current.value;
+
+                    if( value === '' ) {
+                        errorMessage += 'Sequence ID is required';
+                    }
+
+                    if( value !== '' && !/^\d+$/.test( value ) ) {
+                        errorMessage += ' Sequence ID must be a valid number';
+                    }
+
+                    setSequenceIdErr( errorMessage );
+
+                    return errorMessage === '';
+                };
 
                 const addSession = ( event ) => {
                     event.preventDefault();
+                    let isValid = true;
 
-                    // sequenceIdRef.current is the reference to the underlying DOM node
-                    const session = {
-                        sequenceId: sequenceIdRef.current.value
-                    };
+                    isValid = validateSequenceId() && isValid;
+                    // isValid = validateName() && isValid;
 
-                    console.log( session );
-                }
+                    if( isValid ) {
+                        // sequenceIdRef.current is the reference to the underlying DOM node
+                        const session = {
+                            sequenceId: sequenceIdRef.current.value
+                        };
+
+                        console.log( session );
+                    }
+                };
 
                 return (
                     <div className="container my-4">
@@ -47,6 +71,7 @@
                                     ref={sequenceIdRef}
                                     defaultValue="1"
                                 />
+                                <small className="text-danger">{sequenceIdErr}</small>
                             </div>
                             <button className="btn btn-primary">Add session</button>
                         </form>
