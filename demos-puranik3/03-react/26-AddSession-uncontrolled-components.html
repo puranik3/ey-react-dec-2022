@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.js"></script>
+
+        <script type="text/babel">
+            const AddWorkshop = () => {
+                const sequenceIdRef = React.useRef();
+
+                const addSession = ( event ) => {
+                    event.preventDefault();
+
+                    // sequenceIdRef.current is the reference to the underlying DOM node
+                    const session = {
+                        sequenceId: sequenceIdRef.current.value
+                    };
+
+                    console.log( session );
+                }
+
+                return (
+                    <div className="container my-4">
+                        <h2>Add a session</h2>
+                        <hr />
+                        <form onSubmit={addSession}>
+                            <div className="mb-3">
+                                <label htmlFor="sequenceId" className="form-label">Sequence ID</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="sequenceId"
+                                    ref={sequenceIdRef}
+                                    defaultValue="1"
+                                />
+                            </div>
+                            <button className="btn btn-primary">Add session</button>
+                        </form>
+                    </div>
+                );
+            }
+
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <AddWorkshop /> );
+        </script>
+    </body>
+</html>
