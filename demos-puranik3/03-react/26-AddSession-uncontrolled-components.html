@@ -19,6 +19,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.js"></script>
 
         <script type="text/babel">
+            const postSession = async ( session ) => {
+                const response = await axios.post(
+                    `https://workshops-server.herokuapp.com/sessions`,
+                    session,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                
+                return response.data;
+            };
+
             const AddWorkshop = () => {
                 const sequenceIdRef = React.useRef();
                 const nameRef = React.useRef();
@@ -60,7 +74,7 @@
                     return errorMessage === '';
                 };
 
-                const addSession = ( event ) => {
+                const addSession = async ( event ) => {
                     event.preventDefault();
                     let isValid = true;
 
@@ -71,6 +85,7 @@
                         // sequenceIdRef.current is the reference to the underlying DOM node
                         // NOTE: better to also call trim() on the value
                         const session = {
+                            workshopId: 2,
                             sequenceId: +sequenceIdRef.current.value,
                             name: nameRef.current.value,
                             speaker: speakerRef.current.value,
@@ -80,7 +95,12 @@
                             upvoteCount: 0
                         };
 
-                        console.log( session );
+                        try {
+                            const addedSession = await postSession( session );
+                            alert( `A new session with title ${addedSession.name} and id=${addedSession.id} has been created` );
+                        } catch( error ) {
+                            alert( error.message );
+                        }
                     }
                 };
 
