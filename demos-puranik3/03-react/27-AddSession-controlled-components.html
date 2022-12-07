@@ -61,7 +61,7 @@
 
                 const validateSequenceId = () => {
                     let errorMessage = '';
-                    const value = sequenceIdRef.current.value;
+                    const value = sequenceId;
 
                     if( value === '' ) {
                         errorMessage += 'Sequence ID is required';
@@ -78,7 +78,7 @@
                 
                 const validateName = () => {
                     let errorMessage = '';
-                    const value = nameRef.current.value;
+                    const value = name;
 
                     if( value === '' ) {
                         errorMessage += 'Name is required';
@@ -89,14 +89,14 @@
                     return errorMessage === '';
                 };
 
-                const updateValue = ( event ) => {
+                const updateValue = ( event, key ) => {
                     const { id, value } = event.target;
 
                     setState(
                         s => {
                             return {
                                 ...s,
-                                [id]: value
+                                [key || id]: value
                             };
                         }
                     );
@@ -114,13 +114,8 @@
                         // NOTE: better to also call trim() on the value
                         const session = {
                             workshopId: 2,
-                            sequenceId: +sequenceIdRef.current.value,
-                            name: nameRef.current.value,
-                            speaker: speakerRef.current.value,
-                            duration: +durationRef.current.value,
-                            level: levelRef.current.value,
-                            abstract: abstractRef.current.value,
-                            upvoteCount: 0
+                            upvoteCount: 0,
+                            ...state
                         };
 
                         try {
@@ -144,7 +139,7 @@
                                     className="form-control"
                                     id="sequenceId"
                                     value={sequenceId}
-                                    onChange={updateValue}
+                                    onChange={( event ) => updateValue( event, 'sequenceId' )}
                                 />
                                 <small className="text-danger">{sequenceIdErr}</small>
                             </div>
