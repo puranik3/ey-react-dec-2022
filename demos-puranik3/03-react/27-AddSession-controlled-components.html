@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+        
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.20.6/babel.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.js"></script>
+
+        <script type="text/babel">
+            const postSession = async ( session ) => {
+                const response = await axios.post(
+                    `https://workshops-server.herokuapp.com/sessions`,
+                    session,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                );
+                
+                return response.data;
+            };
+
+            const AddWorkshop = () => {
+                // combined state object
+                const [ state, setState ] = React.useState({
+                    sequenceId: '',
+                    name: '',
+                    speaker: '',
+                    duration: '',
+                    level: '',
+                    abstract: ''
+                });
+
+                // if you want to use individual state variables instead of object
+                // const [ name, setName ] = React.useState( '' );
+
+                const {
+                    sequenceId,
+                    name,
+                    speaker,
+                    duration,
+                    level,
+                    abstract
+                } = state;
+
+                const [ sequenceIdErr, setSequenceIdErr ] = React.useState( '' );
+                const [ nameErr, setNameErr ] = React.useState( '' );
+
+                const validateSequenceId = () => {
+                    let errorMessage = '';
+                    const value = sequenceIdRef.current.value;
+
+                    if( value === '' ) {
+                        errorMessage += 'Sequence ID is required';
+                    }
+
+                    if( value !== '' && !/^\d+$/.test( value ) ) {
+                        errorMessage += ' Sequence ID must be a valid number';
+                    }
+
+                    setSequenceIdErr( errorMessage );
+
+                    return errorMessage === '';
+                };
+                
+                const validateName = () => {
+                    let errorMessage = '';
+                    const value = nameRef.current.value;
+
+                    if( value === '' ) {
+                        errorMessage += 'Name is required';
+                    }
+
+                    setNameErr( errorMessage );
+
+                    return errorMessage === '';
+                };
+
+                const updateValue = ( event ) => {
+                    const { id, value } = event.target;
+
+                    setState(
+                        s => {
+                            return {
+                                ...s,
+                                [id]: value
+                            };
+                        }
+                    );
+                };
+
+                const addSession = async ( event ) => {
+                    event.preventDefault();
+                    let isValid = true;
+
+                    isValid = validateSequenceId() && isValid;
+                    isValid = validateName() && isValid;
+
+                    if( isValid ) {
+                        // sequenceIdRef.current is the reference to the underlying DOM node
+                        // NOTE: better to also call trim() on the value
+                        const session = {
+                            workshopId: 2,
+                            sequenceId: +sequenceIdRef.current.value,
+                            name: nameRef.current.value,
+                            speaker: speakerRef.current.value,
+                            duration: +durationRef.current.value,
+                            level: levelRef.current.value,
+                            abstract: abstractRef.current.value,
+                            upvoteCount: 0
+                        };
+
+                        try {
+                            const addedSession = await postSession( session );
+                            alert( `A new session with title ${addedSession.name} and id=${addedSession.id} has been created` );
+                        } catch( error ) {
+                            alert( error.message );
+                        }
+                    }
+                };
+
+                return (
+                    <div className="container my-4">
+                        <h2>Add a session</h2>
+                        <hr />
+                        <form onSubmit={addSession}>
+                            <div className="mb-3">
+                                <label htmlFor="sequenceId" className="form-label">Sequence ID</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="sequenceId"
+                                    value={sequenceId}
+                                    onChange={updateValue}
+                                />
+                                <small className="text-danger">{sequenceIdErr}</small>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="name" className="form-label">Name of the session</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    value={name}
+                                    onChange={updateValue}
+                                    // onChange={() => setName( event.target.value )}
+                                />
+                                <small className="text-danger">{nameErr}</small>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="speaker" className="form-label">Speaker</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="speaker"
+                                    value={speaker}
+                                    onChange={updateValue}
+                                />
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="level" className="form-label">Level</label>
+                                <select
+                                    type="text"
+                                    className="form-control"
+                                    id="level"
+                                    value={level}
+                                    onChange={updateValue}
+                                >
+                                    <option value="">-- Select the level --</option>
+                                    <option value="Basic">Basic</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="duration" className="form-label">Duration (in hours)</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="duration"
+                                    value={duration}
+                                    onChange={updateValue}
+                                />
+                            </div>
+                            
+                            <div className="mb-3">
+                                <label htmlFor="abstract" className="form-label">Describe the session</label>
+                                <textarea
+                                    className="form-control"
+                                    id="abstract"
+                                    value={abstract}
+                                    onChange={updateValue}
+                                ></textarea>
+                            </div>
+                            
+                            <button className="btn btn-primary">Add session</button>
+                        </form>
+                    </div>
+                );
+            }
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <AddWorkshop /> );
+        </script>
+    </body>
+</html>
