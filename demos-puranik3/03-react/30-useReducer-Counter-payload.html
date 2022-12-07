@@ -20,20 +20,17 @@
             const DECREMENT = 'DECREMENT';
             const INCREMENT = 'INCREMENT';
 
-            const counterReducer = ( state, action ) => {
-                switch( action.type ) {
+            const counterReducer = ( state, { type, payload } ) => {
+                switch( type ) {
                     case DECREMENT:
-                        // Always make IMMUTABLE state updates -
-                        // Avoid changing state directly in case of object/array state - instead return a new object/array for the new state
-                        // --state.counter; // avoid this
                         return {
                             ...state,
-                            counter: state.counter - 1
+                            counter: state.counter - ( payload.by || 1 )
                         };
                     case INCREMENT:
                         return {
                             ...state,
-                            counter: state.counter + 1
+                            counter: state.counter + ( payload.by || 1 )
                         };
                     default:
                         return state;
@@ -41,28 +38,35 @@
             };
 
             const Counter = () => {
+                const byRef = React.useRef();
+
                 let [ state, dispatch ] = React.useReducer( counterReducer, {
                     counter: 0
                 } );
-                // let [ counter2, dispatch2 ] = React.useReducer( counterReducer, 0 );
 
                 const decrement = () => {
                     dispatch({
-                        type: DECREMENT
+                        type: DECREMENT,
+                        payload: {
+                            by: +byRef.current.value
+                        }
                     });
                 }
 
                 const increment = () => {
                     dispatch({
-                        type: INCREMENT
+                        type: INCREMENT,
+                        payload: {
+                            by: +byRef.current.value
+                        }
                     });
                 };
 
                 return (
                     <>
+                        <input type="number" ref={byRef} />
                         <button onClick={decrement}>-</button>
                         counter = {state.counter}
-                        {/*counter2 = {counter2}; */}
                         <button onClick={increment}>+</button>
                     </>
                 );
@@ -70,10 +74,7 @@
 
             const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
             root.render(
-                <>
-                    <Counter />
-                    <Counter />
-                </>
+                <Counter />
             );
         </script>
     </body>
