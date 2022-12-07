@@ -33,6 +33,7 @@
         <script src="babel.js"></script>
 
         <script type="text/babel">
+            // Reference for React.memo(): https://reactjs.org/docs/react-api.html#reactmemo
             // If we wrap the component definition in React.memo(), unless a new value for any prop is passed, no need to render this component
             const PanelHeading = React.memo(( { title, toggle } ) => {
                 console.log( 'PanelHeading render' );
@@ -65,6 +66,7 @@
 
                 const [ show, setShow ] = React.useState( true );
 
+                // Reference for useCallback(): https://reactjs.org/docs/hooks-reference.html#usecallback
                 // this is a local function - it is re-created every time Panel is called (Panel is rendered)
                 const toggle = React.useCallback(() => {
                     setShow( s => !s );
