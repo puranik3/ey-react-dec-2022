@@ -3,6 +3,7 @@
 import { Container } from 'react-bootstrap';
 import Menu from './global/Menu/Menu';
 import Home from './pages/Home/Home';
+import WorkshopsList from './pages/WorkshopsList/WorkshopsList';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Menu />
 
       <Container className="my-4">
-        <Home />
+        <WorkshopsList />
       </Container>
     </div>
   );
