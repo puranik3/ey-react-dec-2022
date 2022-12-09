@@ -1,6 +1,8 @@
 import { Card, Button } from "react-bootstrap";
 import Moment from 'react-moment';
 
+import './WorkshopsListItem.css';
+
 const WorkshopsListItem = ({
     imageUrl,
     name,
