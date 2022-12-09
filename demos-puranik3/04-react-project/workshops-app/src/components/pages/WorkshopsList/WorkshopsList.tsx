@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getWorkshops } from "../../../services/workshops";
 import { Row, Col, Card, Button } from "react-bootstrap";
+import Moment from 'react-moment';
 
 import './WorkshopsList.css';
 
@@ -113,7 +114,9 @@ const WorkshopsList = () => {
                                     <Card.Body>
                                         <Card.Title>{workshop.name}</Card.Title>
                                         <Card.Text>
-                                            {workshop.startDate} - {workshop.endDate}
+                                            <Moment format="DD-mm-YYYY">{workshop.startDate}</Moment>
+                                            {" - "}
+                                            <Moment format="DD-mm-YYYY">{workshop.endDate}</Moment>
                                         </Card.Text>
                                         <Button variant="primary">
                                             Know more
