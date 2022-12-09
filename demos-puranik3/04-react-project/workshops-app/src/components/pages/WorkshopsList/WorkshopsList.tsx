@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getWorkshops } from "../../../services/workshops";
-import { Row, Col, Card, Button } from "react-bootstrap";
-import Moment from 'react-moment';
+import { Row, Col } from "react-bootstrap";
+import WorkshopsListItem from "./WorkshopsListItem/WorkshopsListItem";
 
 import './WorkshopsList.css';
 
@@ -106,23 +106,7 @@ const WorkshopsList = () => {
                     <Row xs={1} lg={3}>
                         {filteredWorkshops.map((workshop) => (
                             <Col key={workshop.id} className="d-flex my-3">
-                                <Card className="w-100 p-4 workshop-list-item">
-                                    <Card.Img
-                                        variant="top"
-                                        src={workshop.imageUrl}
-                                    />
-                                    <Card.Body>
-                                        <Card.Title>{workshop.name}</Card.Title>
-                                        <Card.Text>
-                                            <Moment format="DD-mm-YYYY">{workshop.startDate}</Moment>
-                                            {" - "}
-                                            <Moment format="DD-mm-YYYY">{workshop.endDate}</Moment>
-                                        </Card.Text>
-                                        <Button variant="primary">
-                                            Know more
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
+                                <WorkshopsListItem {...workshop} />
                             </Col>
                         ))}
                     </Row>
