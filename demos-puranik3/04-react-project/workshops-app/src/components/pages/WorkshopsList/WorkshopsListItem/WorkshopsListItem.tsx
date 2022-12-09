@@ -1,5 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import Moment from 'react-moment';
+import IWorkshop from "../../../../models/IWorkshop";
 
 import './WorkshopsListItem.css';
 
@@ -8,7 +9,7 @@ const WorkshopsListItem = ({
     name,
     startDate,
     endDate
-} : any ) => {
+} : IWorkshop ) => {
     return (
         <Card className="w-100 p-4 workshop-list-item">
             <Card.Img variant="top" src={imageUrl} />

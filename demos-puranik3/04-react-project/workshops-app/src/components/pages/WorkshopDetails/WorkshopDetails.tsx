@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import SessionsList from './SessionsList/SessionsList';
 import {
     getWorkshopById
 } from '../../../services/workshops';
+import IWorkshop from '../../../models/IWorkshop';
 
 type Params = {
     id: string
@@ -12,7 +14,7 @@ type Params = {
 const WorkshopDetails = () => {
     const { id } = useParams<Params>(); // { id: '2' }
 
-    const [workshop, setWorkshop] = useState<any>(null);
+    const [workshop, setWorkshop] = useState<IWorkshop | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -64,6 +66,8 @@ const WorkshopDetails = () => {
                     </Col>
                 </Row>
             )}
+            
+            <SessionsList id={id} />
         </div>
     );
 }

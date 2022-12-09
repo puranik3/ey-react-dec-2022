@@ -1,4 +1,5 @@
 import axios from 'axios';
+import IWorkshop from '../models/IWorkshop';
 
 const getWorkshops = async ( _page : number ) => {
     const response = await axios.get( `/workshops`,
@@ -9,12 +10,12 @@ const getWorkshops = async ( _page : number ) => {
             }
         }
     );
-    return response.data;
+    return response.data as IWorkshop[];
 };
 
 const getWorkshopById = async ( id : string | number ) => {
     const response = await axios.get( `/workshops/${id}` );
-    return response.data;
+    return response.data as IWorkshop;
 };
 
 export {

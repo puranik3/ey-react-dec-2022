@@ -1,5 +1,8 @@
 # React JS training
 
+## Completed app
+https://vw-angular.s3.ap-south-1.amazonaws.com/index.html
+
 ## Exercises for the day
 - Dec 2
     - 04 - React Lab guide

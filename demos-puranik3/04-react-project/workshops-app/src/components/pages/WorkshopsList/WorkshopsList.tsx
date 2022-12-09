@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { getWorkshops } from "../../../services/workshops";
 import { Row, Col } from "react-bootstrap";
 import WorkshopsListItem from "./WorkshopsListItem/WorkshopsListItem";
+import IWorkshop from "../../../models/IWorkshop";
 
 import './WorkshopsList.css';
 
 const WorkshopsList = () => {
-    const [workshops, setWorkshops] = useState<any[]>([]);
+    const [workshops, setWorkshops] = useState<IWorkshop[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
     const [_page, setPage] = useState(1);
@@ -51,7 +52,7 @@ const WorkshopsList = () => {
 
     // Feature 2: client-side filtering
     const [filterKey, setFilterKey] = useState("");
-    const [filteredWorkshops, setFilteredWorkshops] = useState<any[]>([]);
+    const [filteredWorkshops, setFilteredWorkshops] = useState<IWorkshop[]>([]);
 
     useEffect(() => {
         setFilteredWorkshops(
