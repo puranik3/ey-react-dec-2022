@@ -13,22 +13,22 @@ const SessionsList = ( { id } : Props ) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
+    const fetchSessions = async () => {
+        setLoading(true);
+
+        try {
+            const sessions = await getSessionForWorkshopWithId( id );
+            setSessions(sessions);
+        } catch (error) {
+            setError(error as Error);
+        }
+
+        setLoading(false);
+    };
+
     useEffect(
         () => {
-            const helper = async () => {
-                setLoading(true);
-
-                try {
-                    const sessions = await getSessionForWorkshopWithId( id );
-                    setSessions(sessions);
-                } catch (error) {
-                    setError(error as Error);
-                }
-
-                setLoading(false);
-            };
-
-            helper();
+            fetchSessions();
         },
         [ id ] // on load only (id will not change, but we can include it as a good practice)
     );
@@ -37,12 +37,16 @@ const SessionsList = ( { id } : Props ) => {
         try {
             const updatedSession = await voteSvc( sessionId, voteType );
 
-            setSessions(
-                curSessions => {
-                    // we go through the current sessions, and create a new array where every item except the one we voted on remains the same. The voted session is replaced with the updated details.
-                    return curSessions.map( s => s.id !== sessionId ? s : updatedSession )
-                }
-            );
+            // approach #1: if you want to update only the one user voted on
+            // setSessions(
+            //     curSessions => {
+            //         // we go through the current sessions, and create a new array where every item except the one we voted on remains the same. The voted session is replaced with the updated details.
+            //         return curSessions.map( s => s.id !== sessionId ? s : updatedSession )
+            //     }
+            // );
+
+            // approach #2: if you want to update ALL the sessions
+            fetchSessions();
             
             alert( `Your vote for session ${updatedSession.name} is registered` );
         } catch( error ) {
