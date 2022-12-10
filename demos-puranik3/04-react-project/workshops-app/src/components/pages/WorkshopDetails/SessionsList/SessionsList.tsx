@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { ListGroup } from 'react-bootstrap';
+import SessionsListItem from './SessionsListItem/SessionsListItem';
 import { getSessionForWorkshopWithId } from '../../../../services/sessions';
 import ISession from '../../../../models/ISession';
 
@@ -29,7 +30,7 @@ const SessionsList = ( { id } : Props ) => {
 
             helper();
         },
-        [] // on load only
+        [ id ] // on load only (id will not change, but we can include it as a good practice)
     );
 
     return (
@@ -46,13 +47,11 @@ const SessionsList = ( { id } : Props ) => {
             )}
             {!loading && !error && sessions.length !== 0 && (
                 <>
-                    <Row xs={1} lg={3}>
+                    <ListGroup>
                         {sessions.map((session) => (
-                            <Col key={session.id} className="d-flex my-3">
-                                {session.name}
-                            </Col>
+                           <SessionsListItem {...session} key={session.id} />
                         ))}
-                    </Row>
+                    </ListGroup>
                 </>
             )}
         </div>
