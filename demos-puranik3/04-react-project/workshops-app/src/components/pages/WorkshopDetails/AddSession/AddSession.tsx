@@ -55,7 +55,7 @@ const AddSession = ({ id }: Props) => {
                 <hr />
             </div>
             <hr />
-            <form onSubmit={handleSubmit(addSession)}>
+            <form onSubmit={handleSubmit(addSession)} noValidate>
                 <div className="mb-3">
                     <label htmlFor="sequenceId" className="form-label">
                         Sequence ID
