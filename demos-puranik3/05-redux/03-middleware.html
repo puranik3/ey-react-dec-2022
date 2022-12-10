@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <input type="number" id="changeBy" />
+        <button onclick="store.dispatch( decrement( +document.getElementById( 'changeBy' ).value ) );">-</button>
+        <span id="counter"></span>
+        <button onclick="store.dispatch( increment( +document.getElementById( 'changeBy' ).value ) );">+</button>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
+
+        <script>
+            // action constants
+            const INCREMENT = 'INCREMENT';
+            const DECREMENT = 'DECREMENT';
+
+            // action creators
+            const decrement = ( changeBy ) => {
+                return {
+                    type: DECREMENT,
+                    payload: {
+                        // changeBy: changeBy
+                        changeBy
+                    }
+                };
+            };
+            
+            const increment = ( changeBy ) => {
+                return {
+                    type: INCREMENT,
+                    payload: {
+                        changeBy
+                    }
+                };
+            };
+
+            const logger = ( store ) => {
+                return ( next ) => {
+                    return ( action ) => {
+                        console.log( 'logger is called' );
+                        next( action ); // passing on control to the next middleware / store
+                    };
+                };
+            };
+
+            /**
+             * The reducer function MUST be a "PURE FUNCTION"
+             * 1. Always returns the SAME output for the SAME inputs (predictable)
+             * 2. It should use only the arguments is receives, no globals (no "side-effects")
+             * 3. It should NOT MODIFY its arguments (no "side-effects")
+             */
+            const initialState = {
+                value: 0
+            };
+
+            const reducer = ( state = initialState, action ) => {
+                switch( action.type ) {
+                    case DECREMENT:
+                        // state.value++; // Rule #3 violated
+                        return {
+                            ...state,
+                            value: state.value - action.payload.changeBy
+                        };
+                    case INCREMENT:
+                        return {
+                            ...state,
+                            value: state.value + action.payload.changeBy
+                        };
+                    default:
+                        return state;
+                }
+            };
+
+            // store calls the reducer once at the time store is created
+            // The store passes undefined to the reducer -> the reducer returns the initialState -> the store updates the state to the initialState
+            const store = Redux.createStore( reducer, Redux.applyMiddleware( logger ) );
+
+            const render = () => {
+                document.getElementById( 'counter' ).textContent = store.getState().value;
+            };
+
+            // show initial state of the store
+            render();
+
+            // re-render once the store state changes
+            store.subscribe( render );
+        </script>
+    </body>
+</html>
