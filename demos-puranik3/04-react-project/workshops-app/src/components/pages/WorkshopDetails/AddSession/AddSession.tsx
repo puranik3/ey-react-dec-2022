@@ -100,7 +100,17 @@ const AddSession = ({ id }: Props) => {
                         id="name"
                         {...register( 'name', { required: true } )}
                     />
-                    <small className="text-danger">{}</small>
+                    {
+                        errors.name && (
+                            <small className="text-danger">
+                                {
+                                    errors.name.type === 'required' && (
+                                        'Name of the session is required'
+                                    )
+                                }
+                            </small>
+                        )
+                    }
                 </div>
 
                 <div className="mb-3">
@@ -143,12 +153,24 @@ const AddSession = ({ id }: Props) => {
                     <select
                         className="form-control"
                         id="level"
+                        {...register( 'level', { required: true } )}
                     >
                         <option value="">-- Select the level --</option>
                         <option value="Basic">Basic</option>
                         <option value="Intermediate">Intermediate</option>
                         <option value="Advanced">Advanced</option>
                     </select>
+                    {
+                        errors.level && (
+                            <small className="text-danger">
+                                {
+                                    errors.level.type === 'required' && (
+                                        'Level is required'
+                                    )
+                                }
+                            </small>
+                        )
+                    }
                 </div>
 
                 <div className="mb-3">
@@ -159,7 +181,19 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="duration"
+                        {...register( 'duration', { required: true } )}
                     />
+                    {
+                        errors.duration && (
+                            <small className="text-danger">
+                                {
+                                    errors.duration.type === 'required' && (
+                                        'Duration is required'
+                                    )
+                                }
+                            </small>
+                        )
+                    }
                 </div>
 
                 <div className="mb-3">
@@ -169,7 +203,19 @@ const AddSession = ({ id }: Props) => {
                     <textarea
                         className="form-control"
                         id="abstract"
+                        {...register( 'abstract', { required: true } )}
                     ></textarea>
+                    {
+                        errors.abstract && (
+                            <small className="text-danger">
+                                {
+                                    errors.abstract.type === 'required' && (
+                                        'Abstract is required'
+                                    )
+                                }
+                            </small>
+                        )
+                    }
                 </div>
 
                 <button className="btn btn-primary">Add session</button>
