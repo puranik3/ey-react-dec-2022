@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Spinner, Alert } from 'react-bootstrap';
 import SessionsListItem from './SessionsListItem/SessionsListItem';
 import { getSessionForWorkshopWithId } from '../../../../services/sessions';
 import ISession from '../../../../models/ISession';
@@ -34,16 +34,18 @@ const SessionsList = ( { id } : Props ) => {
     );
 
     return (
-        <div>
+        <div className="mt-5">
+            <h2>List of Sessions</h2>
+            <hr />
             {loading && (
                 <div className="d-flex justify-content-center">
-                    <div className="spinner-border" role="status">
+                    <Spinner animation="border" role="status">
                         <span className="visually-hidden">Loading...</span>
-                    </div>
+                     </Spinner>
                 </div>
             )}
             {!loading && error && (
-                <div className="alert alert-danger">{error.message}</div>
+                <Alert variant="danger">{error.message}</Alert>
             )}
             {!loading && !error && sessions.length !== 0 && (
                 <>
