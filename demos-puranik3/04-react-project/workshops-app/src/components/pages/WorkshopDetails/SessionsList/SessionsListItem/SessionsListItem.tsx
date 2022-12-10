@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ListGroupItem, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
@@ -8,7 +9,7 @@ type Props = {
     vote: Function
 }
 
-const SessionsListItem = ( {
+const SessionsListItem = memo(( {
     session :{
         id,
         name,
@@ -46,6 +47,6 @@ const SessionsListItem = ( {
             </Row>
         </ListGroupItem>
     );
-}
+});
  
 export default SessionsListItem;

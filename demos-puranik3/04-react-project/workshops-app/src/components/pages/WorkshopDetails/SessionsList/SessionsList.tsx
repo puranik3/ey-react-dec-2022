@@ -3,6 +3,7 @@ import { ListGroup, Spinner, Alert } from 'react-bootstrap';
 import SessionsListItem from './SessionsListItem/SessionsListItem';
 import { getSessionForWorkshopWithId, vote as voteSvc, VoteType } from '../../../../services/sessions';
 import ISession from '../../../../models/ISession';
+import { toast } from 'react-toastify';
 
 type Props = {
     id: string | number
@@ -30,10 +31,10 @@ const SessionsList = ( { id } : Props ) => {
         () => {
             fetchSessions();
         },
-        [ fetchSessions ] // on load only (id will not change, but we can include it as a good practice)
+        [ fetchSessions ] // on load only (fetchSessions will not change, but we can include it as a good practice)
     );
 
-    const vote = async ( sessionId: number, voteType : VoteType ) => {
+    const vote = useCallback(async ( sessionId: number, voteType : VoteType ) => {
         try {
             const updatedSession = await voteSvc( sessionId, voteType );
 
@@ -48,11 +49,11 @@ const SessionsList = ( { id } : Props ) => {
             // approach #2: if you want to update ALL the sessions
             fetchSessions();
             
-            alert( `Your vote for session ${updatedSession.name} is registered` );
+            toast.success( `Your vote for session ${updatedSession.name} is registered` );
         } catch( error ) {
-            alert( ( error as Error ).message );
+            toast.error( ( error as Error ).message );
         }
-    };
+    }, [ fetchSessions ]);
 
     return (
         <div className="mt-5">
