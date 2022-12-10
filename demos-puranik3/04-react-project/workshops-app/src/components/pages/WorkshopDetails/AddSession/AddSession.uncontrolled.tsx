@@ -2,7 +2,6 @@ import { useRef, useState, FormEvent } from 'react';
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-// import { ErrorMessage } from '@hookform/error-message';
 import { postSession } from '../../../../services/sessions';
 import ISession from '../../../../models/ISession';
 
@@ -11,32 +10,76 @@ type Props = {
 };
 
 const AddSession = ({ id }: Props) => {
-    const { register, handleSubmit, formState : { errors } } = useForm({
-        mode: 'all'
-    })
+    const sequenceIdRef = useRef<HTMLInputElement>( null );
+    const nameRef = useRef<HTMLInputElement>( null );
+    const speakerRef = useRef<HTMLInputElement>( null );
+    const levelRef = useRef<HTMLSelectElement>( null );
+    const durationRef = useRef<HTMLInputElement>( null );
+    const abstractRef = useRef<HTMLTextAreaElement>( null );
 
-    // const addSession = async ( values : Omit<ISession, 'id' | 'workshopId' | 'upvoteCount'> ) => {
-    const addSession = async ( values : any ) => {
-        const session = {
-            workshopId: +id,
-            upvoteCount: 0,
-            ...values,
-            sequenceId: +values.sequenceId,
-            duration: +values.duration
-        };
+    const [sequenceIdErr, setSequenceIdErr] = useState("");
+    const [nameErr, setNameErr] = useState("");
 
-        try {
-            const addedSession = await postSession(session);
-            alert(
-                `A new session with title ${addedSession.name} and id=${addedSession.id} has been created`
-            );
-        } catch (error) {
-            alert((error as Error).message);
+    const validateSequenceId = () => {
+        let errorMessage = "";
+        const value = sequenceIdRef.current?.value || '';
+
+        if (value === "") {
+            errorMessage += "Sequence ID is required";
         }
+
+        if (value !== "" && !/^\d+$/.test(value)) {
+            errorMessage += " Sequence ID must be a valid number";
+        }
+
+        setSequenceIdErr(errorMessage);
+
+        return errorMessage === "";
     };
 
-    const csvValidator = ( value : string ) => {
-        return /^[A-Za-z ]+(,[A-Za-z ]+)*$/.test( value );
+    const validateName = () => {
+        let errorMessage = "";
+        const value = nameRef.current?.value || '';
+
+        if (value === "") {
+            errorMessage += "Name is required";
+        }
+
+        setNameErr(errorMessage);
+
+        return errorMessage === "";
+    };
+
+    const addSession = async ( event : FormEvent<HTMLFormElement> ) => {
+        event.preventDefault();
+        let isValid = true;
+
+        isValid = validateSequenceId() && isValid;
+        isValid = validateName() && isValid;
+
+        if (isValid) {
+            // sequenceIdRef.current is the reference to the underlying DOM node
+            // NOTE: better to also call trim() on the value
+            const session = {
+                workshopId: +id,
+                sequenceId: +(sequenceIdRef.current as HTMLInputElement).value,
+                name: nameRef.current?.value,
+                speaker: speakerRef.current?.value,
+                duration: +(durationRef.current as HTMLInputElement).value,
+                level: levelRef.current?.value,
+                abstract: abstractRef.current?.value,
+                upvoteCount: 0,
+            } as Omit<ISession, 'id'>;
+
+            try {
+                const addedSession = await postSession(session);
+                alert(
+                    `A new session with title ${addedSession.name} and id=${addedSession.id} has been created`
+                );
+            } catch (error) {
+                alert((error as Error).message);
+            }
+        }
     };
 
     /**
@@ -55,7 +98,7 @@ const AddSession = ({ id }: Props) => {
                 <hr />
             </div>
             <hr />
-            <form onSubmit={handleSubmit(addSession)}>
+            <form onSubmit={addSession}>
                 <div className="mb-3">
                     <label htmlFor="sequenceId" className="form-label">
                         Sequence ID
@@ -64,30 +107,10 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="sequenceId"
-                        {...register( 'sequenceId', { required: true, pattern: /^\d+$/, minLength: 4 } )}
+                        ref={sequenceIdRef}
+                        defaultValue="1"
                     />
-                    {
-                        /* errors.sequenceId is null if no error, else it is an object */
-                        errors.sequenceId && (
-                            <small className="text-danger">
-                                {
-                                    errors.sequenceId.type === 'required' && (
-                                        'Sequence ID is required'
-                                    )
-                                }
-                                {
-                                    errors.sequenceId.type === 'pattern' && (
-                                        'Sequence ID must be a number'
-                                    )
-                                }
-                            </small>
-                        )
-                    }
-                    {/* <ErrorMessage
-                        errors={errors}
-                        name="sequenceId"
-                        render={({ message } : { message : string }) => <p>{message}</p>}
-                    /> */}
+                    <small className="text-danger">{sequenceIdErr}</small>
                 </div>
 
                 <div className="mb-3">
@@ -98,9 +121,9 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="name"
-                        {...register( 'name', { required: true } )}
+                        ref={nameRef}
                     />
-                    <small className="text-danger">{}</small>
+                    <small className="text-danger">{nameErr}</small>
                 </div>
 
                 <div className="mb-3">
@@ -111,29 +134,8 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="speaker"
-                        {
-                            ...register( 'speaker', { 
-                                required: true,
-                                validate : csvValidator
-                            })
-                        }
+                        ref={speakerRef}
                     />
-                    {
-                        errors.speaker && (
-                            <small className="text-danger">
-                                {
-                                    errors.speaker.type === 'required' && (
-                                        'Speakers is required'
-                                    )
-                                }
-                                {
-                                    errors.speaker.type === 'validate' && (
-                                        'Speakers can be only comma-separated values'
-                                    )
-                                }
-                            </small>
-                        )
-                    }
                 </div>
 
                 <div className="mb-3">
@@ -143,6 +145,8 @@ const AddSession = ({ id }: Props) => {
                     <select
                         className="form-control"
                         id="level"
+                        ref={levelRef}
+                        defaultValue="1"
                     >
                         <option value="">-- Select the level --</option>
                         <option value="Basic">Basic</option>
@@ -159,6 +163,8 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="duration"
+                        ref={durationRef}
+                        defaultValue="1"
                     />
                 </div>
 
@@ -169,6 +175,7 @@ const AddSession = ({ id }: Props) => {
                     <textarea
                         className="form-control"
                         id="abstract"
+                        ref={abstractRef}
                     ></textarea>
                 </div>
 

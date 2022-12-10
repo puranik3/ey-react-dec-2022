@@ -14,15 +14,7 @@ const vote = async ( id : string | number, voteType: VoteType ) /*: Promise<ISes
 };
 
 const postSession = async ( session : Omit<ISession, 'id'> ) => {
-    const response = await axios.post(
-        `https://workshops-server.herokuapp.com/sessions`,
-        session,
-        {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-    );
+    const response = await axios.post( `/sessions`, session );
     
     return response.data as ISession;
 };
