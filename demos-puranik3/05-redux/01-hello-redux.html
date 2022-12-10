@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root">
+            <button onclick="store.dispatch( { type: DECREMENT } );">-</button>
+            <span id="counter"></span>
+            <button onclick="store.dispatch( { type: INCREMENT } );">+</button>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
+
+        <script>
+            // actions
+            const INCREMENT = 'INCREMENT';
+            const DECREMENT = 'DECREMENT';
+
+            const reducer = ( state, action ) => {
+                switch( action.type ) {
+                    case DECREMENT:
+                        return state - 1;
+                    case INCREMENT:
+                        return state + 1;
+                    default:
+                        return state;
+                }
+            };
+
+            const store = Redux.createStore( reducer, 0 );
+
+            const render = () => {
+                document.getElementById( 'counter' ).textContent = store.getState();
+            };
+
+            // show initial state of the store
+            render();
+
+            // re-render once the store state changes
+            store.subscribe( render );
+        </script>
+    </body>
+</html>
