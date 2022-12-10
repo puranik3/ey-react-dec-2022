@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Card, Button } from "react-bootstrap";
 import Moment from 'react-moment';
 import IWorkshop from "../../../../models/IWorkshop";
@@ -5,6 +6,7 @@ import IWorkshop from "../../../../models/IWorkshop";
 import './WorkshopsListItem.css';
 
 const WorkshopsListItem = ({
+    id,
     imageUrl,
     name,
     startDate,
@@ -20,7 +22,9 @@ const WorkshopsListItem = ({
                     {" - "}
                     <Moment format="DD-mm-YYYY">{endDate}</Moment>
                 </Card.Text>
-                <Button variant="primary">Know more</Button>
+                <Link to={'/workshops/' + id}>
+                    <Button variant="primary">Know more</Button>
+                </Link>
             </Card.Body>
         </Card>
     );
