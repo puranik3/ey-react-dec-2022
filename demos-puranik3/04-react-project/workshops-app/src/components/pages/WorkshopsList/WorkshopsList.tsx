@@ -20,7 +20,7 @@ const WorkshopsList = () => {
 
                 try {
                     const workshops = await getWorkshops(_page);
-                    setWorkshops(workshops as any[]);
+                    setWorkshops(workshops);
                 } catch (error) {
                     setError(error as Error);
                 }
