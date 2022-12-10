@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ListGroup, Spinner, Alert } from 'react-bootstrap';
 import SessionsListItem from './SessionsListItem/SessionsListItem';
 import { getSessionForWorkshopWithId, vote as voteSvc, VoteType } from '../../../../services/sessions';
@@ -13,7 +13,7 @@ const SessionsList = ( { id } : Props ) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
-    const fetchSessions = async () => {
+    const fetchSessions = useCallback(async () => {
         setLoading(true);
 
         try {
@@ -24,13 +24,13 @@ const SessionsList = ( { id } : Props ) => {
         }
 
         setLoading(false);
-    };
+    }, [ id ]);
 
     useEffect(
         () => {
             fetchSessions();
         },
-        [ id ] // on load only (id will not change, but we can include it as a good practice)
+        [ fetchSessions ] // on load only (id will not change, but we can include it as a good practice)
     );
 
     const vote = async ( sessionId: number, voteType : VoteType ) => {
