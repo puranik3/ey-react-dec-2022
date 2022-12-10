@@ -1,27 +1,25 @@
 import { ListGroupItem, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
-import { vote as voteSvc, VoteType } from '../../../../../services/sessions';
 import ISession from '../../../../../models/ISession';
 
-const SessionsListItem = ( {
-    id,
-    name,
-    speaker,
-    level,
-    duration,
-    abstract,
-    upvoteCount
-} : ISession ) => {
-    const vote = async ( voteType : VoteType ) => {
-        try {
-            const updatedSession = await voteSvc( id, voteType );
-            alert( `Your vote for session ${name} is registered` );
-        } catch( error ) {
-            alert( ( error as Error ).message );
-        }
-    };
+type Props = {
+    session: ISession,
+    vote: Function
+}
 
+const SessionsListItem = ( {
+    session :{
+        id,
+        name,
+        speaker,
+        level,
+        duration,
+        abstract,
+        upvoteCount
+    },
+    vote
+} : Props ) => {
     return (
         <ListGroupItem>
             <Row className="align-items-stretch">
@@ -29,13 +27,13 @@ const SessionsListItem = ( {
                     <FontAwesomeIcon
                         icon={faCaretUp}
                         className="fa-2x"
-                        onClick={() => vote( 'upvote' )}
+                        onClick={() => vote( id, 'upvote' )}
                     />
                     {upvoteCount}
                     <FontAwesomeIcon
                         icon={faCaretDown}
                         className="fa-2x"
-                        onClick={() => vote( 'downvote' )}
+                        onClick={() => vote( id, 'downvote' )}
                     />
                 </Col>
                 <Col xs={11}>
