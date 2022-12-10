@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Route, useParams } from 'react-router-dom';
 import SessionsList from './SessionsList/SessionsList';
+import AddSession from './AddSession/AddSession';
 import {
     getWorkshopById
 } from '../../../services/workshops';
@@ -66,8 +67,13 @@ const WorkshopDetails = () => {
                     </Col>
                 </Row>
             )}
-            
-            <SessionsList id={id} />
+
+            <Route path="/workshops/:id" exact>
+                <SessionsList id={id} />
+            </Route>
+            <Route path="/workshops/:id/add">
+                <AddSession id={id} />
+            </Route>
         </div>
     );
 }

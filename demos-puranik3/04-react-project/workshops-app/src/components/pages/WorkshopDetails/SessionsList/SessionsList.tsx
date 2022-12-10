@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ListGroup, Spinner, Alert } from 'react-bootstrap';
+import { ListGroup, Spinner, Alert, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import SessionsListItem from './SessionsListItem/SessionsListItem';
 import { getSessionForWorkshopWithId, vote as voteSvc, VoteType } from '../../../../services/sessions';
 import ISession from '../../../../models/ISession';
@@ -57,7 +58,12 @@ const SessionsList = ( { id } : Props ) => {
 
     return (
         <div className="mt-5">
-            <h2>List of Sessions</h2>
+            <h2 className="d-flex align-items-center justify-content-between">
+                <span>List of Sessions</span>
+                <Link to={`/workshops/${id}/add`}>
+                    <Button variant="primary">Add a session</Button>
+                </Link>
+            </h2>
             <hr />
             {loading && (
                 <div className="d-flex justify-content-center">

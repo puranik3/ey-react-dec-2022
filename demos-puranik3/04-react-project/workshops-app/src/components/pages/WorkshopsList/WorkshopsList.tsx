@@ -1,37 +1,20 @@
 import { useState, useEffect } from "react";
 import { getWorkshops } from "../../../services/workshops";
 import { Row, Col } from "react-bootstrap";
+import useFetchData from "../../../hooks/useFetchData";
 import WorkshopsListItem from "./WorkshopsListItem/WorkshopsListItem";
 import IWorkshop from "../../../models/IWorkshop";
 
 import './WorkshopsList.css';
 
 const WorkshopsList = () => {
-    const [workshops, setWorkshops] = useState<IWorkshop[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
     const [_page, setPage] = useState(1);
 
-    // Feature 1: pagination (fetching workshops)
-    useEffect(
-        () => {
-            const helper = async () => {
-                setLoading(true);
-
-                try {
-                    const workshops = await getWorkshops(_page);
-                    setWorkshops(workshops);
-                } catch (error) {
-                    setError(error as Error);
-                }
-
-                setLoading(false);
-            };
-
-            helper();
-        },
-        [_page] // dependencies array
-    );
+    const {
+        data : workshops,
+        loading,
+        error
+    } = useFetchData( () => getWorkshops(_page), [ _page ] )
 
     const previous = () => {
         if (_page <= 1) {
@@ -43,7 +26,7 @@ const WorkshopsList = () => {
 
     const next = () => {
         // If we go beyond the last page, the backend returns an empty array of workshops
-        if (workshops.length === 0) {
+        if (workshops?.length === 0) {
             return;
         }
 
@@ -55,6 +38,10 @@ const WorkshopsList = () => {
     const [filteredWorkshops, setFilteredWorkshops] = useState<IWorkshop[]>([]);
 
     useEffect(() => {
+        if( !workshops ) {
+            return;
+        }
+
         setFilteredWorkshops(
             filterKey === ""
                 ? workshops
@@ -99,10 +86,10 @@ const WorkshopsList = () => {
             {!loading && error && (
                 <div className="alert alert-danger">{error.message}</div>
             )}
-            {!loading && !error && workshops.length === 0 && (
+            {!loading && !error && workshops?.length === 0 && (
                 <div className="alert alert-info">That's all folks!</div>
             )}
-            {!loading && !error && workshops.length !== 0 && (
+            {!loading && !error && workshops?.length !== 0 && (
                 <>
                     <Row xs={1} lg={3}>
                         {filteredWorkshops.map((workshop) => (
