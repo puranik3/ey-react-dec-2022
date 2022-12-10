@@ -8,9 +8,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
     </head>
     <body>
-        <button onclick="store.dispatch( decrement() );">-</button>
+        <input type="number" id="changeBy" />
+        <button onclick="store.dispatch( decrement( +document.getElementById( 'changeBy' ).value ) );">-</button>
         <span id="counter"></span>
-        <button onclick="store.dispatch( increment() );">+</button>
+        <button onclick="store.dispatch( increment( +document.getElementById( 'changeBy' ).value ) );">+</button>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
 
@@ -20,15 +21,22 @@
             const DECREMENT = 'DECREMENT';
 
             // action creators
-            const decrement = () => {
+            const decrement = ( changeBy ) => {
                 return {
-                    type: DECREMENT
+                    type: DECREMENT,
+                    payload: {
+                        // changeBy: changeBy
+                        changeBy
+                    }
                 };
             };
             
-            const increment = () => {
+            const increment = ( changeBy ) => {
                 return {
-                    type: INCREMENT
+                    type: INCREMENT,
+                    payload: {
+                        changeBy
+                    }
                 };
             };
 
@@ -50,12 +58,12 @@
                         // state.value++; // Rule #3 violated
                         return {
                             ...state,
-                            value: state.value - 1
+                            value: state.value - action.payload.changeBy
                         };
                     case INCREMENT:
                         return {
                             ...state,
-                            value: state.value + 1
+                            value: state.value + action.payload.changeBy
                         };
                     default:
                         return state;
