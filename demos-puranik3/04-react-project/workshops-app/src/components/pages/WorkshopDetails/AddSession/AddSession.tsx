@@ -64,7 +64,7 @@ const AddSession = ({ id }: Props) => {
                         type="text"
                         className="form-control"
                         id="sequenceId"
-                        {...register( 'sequenceId', { required: true, pattern: /^\d+$/, minLength: 4 } )}
+                        {...register( 'sequenceId', { required: true, pattern: /^\d+$/, minLength: 3 } )}
                     />
                     {
                         /* errors.sequenceId is null if no error, else it is an object */
@@ -78,6 +78,11 @@ const AddSession = ({ id }: Props) => {
                                 {
                                     errors.sequenceId.type === 'pattern' && (
                                         'Sequence ID must be a number'
+                                    )
+                                }
+                                {
+                                    errors.sequenceId.type === 'minLength' && (
+                                        'Sequence ID must have at least 3 digits'
                                     )
                                 }
                             </small>
