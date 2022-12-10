@@ -8,34 +8,66 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
     </head>
     <body>
-        <div id="root">
-            <button onclick="store.dispatch( { type: DECREMENT } );">-</button>
-            <span id="counter"></span>
-            <button onclick="store.dispatch( { type: INCREMENT } );">+</button>
-        </div>
+        <button onclick="store.dispatch( decrement() );">-</button>
+        <span id="counter"></span>
+        <button onclick="store.dispatch( increment() );">+</button>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
 
         <script>
-            // actions
+            // action constants
             const INCREMENT = 'INCREMENT';
             const DECREMENT = 'DECREMENT';
 
-            const reducer = ( state, action ) => {
+            // action creators
+            const decrement = () => {
+                return {
+                    type: DECREMENT
+                };
+            };
+            
+            const increment = () => {
+                return {
+                    type: INCREMENT
+                };
+            };
+
+            const initialState = {
+                value: 0
+            };
+
+            /**
+             * The reducer function MUST be a "PURE FUNCTION"
+             * 1. Always returns the SAME output for the SAME inputs (predictable)
+             * 2. It should use only the arguments is receives, no globals
+             * 3. It should NOT MODIFY its arguments
+             */
+            const reducer = ( state = initialState, action ) => {
+                console.log( state, action );
+
                 switch( action.type ) {
                     case DECREMENT:
-                        return state - 1;
+                        // state.value++; // Rule #3 violated
+                        return {
+                            ...state,
+                            value: state.value - 1
+                        };
                     case INCREMENT:
-                        return state + 1;
+                        return {
+                            ...state,
+                            value: state.value + 1
+                        };
                     default:
                         return state;
                 }
             };
 
-            const store = Redux.createStore( reducer, 0 );
+            // store calls the reducer once at the time store is created
+            // The store passes undefined to the reducer -> the reducer returns the initialState -> the store updates the state to the initialState
+            const store = Redux.createStore( reducer );
 
             const render = () => {
-                document.getElementById( 'counter' ).textContent = store.getState();
+                document.getElementById( 'counter' ).textContent = store.getState().value;
             };
 
             // show initial state of the store
