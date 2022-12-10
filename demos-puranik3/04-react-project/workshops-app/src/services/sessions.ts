@@ -13,7 +13,22 @@ const vote = async ( id : string | number, voteType: VoteType ) /*: Promise<ISes
     return response.data as ISession;
 };
 
+const postSession = async ( session : Omit<ISession, 'id'> ) => {
+    const response = await axios.post(
+        `https://workshops-server.herokuapp.com/sessions`,
+        session,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    );
+    
+    return response.data as ISession;
+};
+
 export {
     getSessionForWorkshopWithId,
-    vote
+    vote,
+    postSession
 };
