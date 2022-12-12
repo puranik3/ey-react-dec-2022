@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    </head>
+    <body>
+        <input type="number" id="changeBy" value="1" />
+        <button onclick="store.dispatch( decrement( +document.getElementById( 'changeBy' ).value ) );">-</button>
+        <span id="counter"></span>
+        <button onclick="store.dispatch( increment( +document.getElementById( 'changeBy' ).value ) );">+</button>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
+
+        <script type="module">
+            import {
+                increment,
+                decrement
+            } from './actions/creators.js';
+
+            import store from './store.js';
+
+            // expose store on window so that we can call from inline JS (onclick above)
+            window.store = store;
+            window.increment = increment;
+            window.decrement = decrement;
+
+            const render = () => {
+                document.getElementById( 'counter' ).textContent = store.getState().value;
+            };
+
+            // show initial state of the store
+            render();
+
+            // re-render once the store state changes
+            store.subscribe( render );
+        </script>
+    </body>
+</html>

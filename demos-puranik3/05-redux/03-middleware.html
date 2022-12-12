@@ -45,7 +45,7 @@
                 console.log( action );
                 console.log( store.getState() );
 
-                next( action ); // passing on control to the next middleware / store
+                next( action ); // passing on control to the next middleware (storeState)
 
                 console.log( 'logger is called (part 2)' );
 
@@ -57,7 +57,7 @@
             const storeState = store => next => action => {
                 console.log( 'storeState is called (part 1)' );
                 
-                next( action );
+                next( action ); // this passes control to the store (which calls the reducer)
                 
                 console.log( 'storeState is called (part 2)' );
                 
