@@ -40,13 +40,16 @@
                 };
             };
 
-            const logger = ( store ) => {
-                return ( next ) => {
-                    return ( action ) => {
-                        console.log( 'logger is called' );
-                        next( action ); // passing on control to the next middleware / store
-                    };
-                };
+            const logger = store => next => action => {
+                console.log( 'logger is called' );
+                console.log( action );
+                console.log( store.getState() );
+
+                next( action ); // passing on control to the next middleware / store
+
+                // called after the state changes
+                console.log( action );
+                console.log( store.getState() );
             };
 
             /**
