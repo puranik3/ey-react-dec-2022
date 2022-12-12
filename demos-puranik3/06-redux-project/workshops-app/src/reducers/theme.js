@@ -3,7 +3,7 @@ import {
 } from '../actions/constants';
 
 const initialState = {
-    value: 'light'
+    value: 'dark'
 };
 
 const reducer = ( state = initialState, action ) => {

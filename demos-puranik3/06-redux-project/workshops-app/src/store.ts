@@ -5,9 +5,15 @@ import {
 
 import themeReducer from './reducers/theme';
 
+export type State = {
+    theme: {
+        value : 'light' | 'dark'
+    }
+}
+
 // state -> {
 //     theme: {
-//         theme: 'light'
+//         value: 'light'
 //     }
 // }
 const rootReducer = combineReducers({
