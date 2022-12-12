@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
     </head>
     <body>
-        <input type="number" id="changeBy" />
+        <input type="number" id="changeBy" value="1" />
         <button onclick="store.dispatch( decrement( +document.getElementById( 'changeBy' ).value ) );">-</button>
         <span id="counter"></span>
         <button onclick="store.dispatch( increment( +document.getElementById( 'changeBy' ).value ) );">+</button>
@@ -41,15 +41,27 @@
             };
 
             const logger = store => next => action => {
-                console.log( 'logger is called' );
+                console.log( 'logger is called (part 1)' );
                 console.log( action );
                 console.log( store.getState() );
 
                 next( action ); // passing on control to the next middleware / store
 
+                console.log( 'logger is called (part 2)' );
+
                 // called after the state changes
                 console.log( action );
                 console.log( store.getState() );
+            };
+
+            const storeState = store => next => action => {
+                console.log( 'storeState is called (part 1)' );
+                
+                next( action );
+                
+                console.log( 'storeState is called (part 2)' );
+                
+                localStorage.setItem( 'state', JSON.stringify( store.getState() ) );
             };
 
             /**
@@ -58,7 +70,8 @@
              * 2. It should use only the arguments is receives, no globals (no "side-effects")
              * 3. It should NOT MODIFY its arguments (no "side-effects")
              */
-            const initialState = {
+            const storedState = JSON.parse( localStorage.getItem( 'state' ) );
+            const initialState =  storedState || {
                 value: 0
             };
 
@@ -82,7 +95,7 @@
 
             // store calls the reducer once at the time store is created
             // The store passes undefined to the reducer -> the reducer returns the initialState -> the store updates the state to the initialState
-            const store = Redux.createStore( reducer, Redux.applyMiddleware( logger ) );
+            const store = Redux.createStore( reducer, Redux.applyMiddleware( logger, storeState ) );
 
             const render = () => {
                 document.getElementById( 'counter' ).textContent = store.getState().value;
