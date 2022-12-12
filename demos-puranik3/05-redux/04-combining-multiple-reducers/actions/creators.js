@@ -1,6 +1,7 @@
 import {
     INCREMENT,
-    DECREMENT
+    DECREMENT,
+    UPDATE_NAME
 } from './constants.js';
 
 // action creators
@@ -23,7 +24,17 @@ const increment = ( changeBy ) => {
     };
 };
 
+const updateName = ( name ) => {
+    return {
+        type: UPDATE_NAME,
+        payload: {
+            name
+        }
+    };
+};
+
 export {
     increment,
-    decrement
+    decrement,
+    updateName
 };

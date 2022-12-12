@@ -3,8 +3,11 @@ import {
     DECREMENT
 } from '../actions/constants.js';
 
-const storedState = JSON.parse( localStorage.getItem( 'state' ) );
-const initialState =  storedState || {
+// const storedState = JSON.parse( localStorage.getItem( 'state' ) );
+// const initialState =  storedState || {
+//     value: 0
+// };
+const initialState = {
     value: 0
 };
 

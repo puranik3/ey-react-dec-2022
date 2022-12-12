@@ -95,7 +95,7 @@
 
             // store calls the reducer once at the time store is created
             // The store passes undefined to the reducer -> the reducer returns the initialState -> the store updates the state to the initialState
-            const store = Redux.createStore( reducer, Redux.applyMiddleware( logger, storeState ) );
+            const store = Redux.createStore( reducer, Redux.applyMiddleware( logger/*, storeState*/ ) );
 
             const render = () => {
                 document.getElementById( 'counter' ).textContent = store.getState().value;

@@ -8,17 +8,25 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
     </head>
     <body>
+        <h2>Counter</h2>
+        <hr />
         <input type="number" id="changeBy" value="1" />
         <button onclick="store.dispatch( decrement( +document.getElementById( 'changeBy' ).value ) );">-</button>
         <span id="counter"></span>
         <button onclick="store.dispatch( increment( +document.getElementById( 'changeBy' ).value ) );">+</button>
+
+        <h2 class="my-5">Profile</h2>
+        <hr />
+        <input type="text" id="user-name" oninput="store.dispatch( updateName( event.target.value ) )" />
+        <span id="user-name-state"></span>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.2.0/redux.js"></script>
 
         <script type="module">
             import {
                 increment,
-                decrement
+                decrement,
+                updateName
             } from './actions/creators.js';
 
             import store from './store.js';
@@ -27,9 +35,11 @@
             window.store = store;
             window.increment = increment;
             window.decrement = decrement;
+            window.updateName = updateName;
 
             const render = () => {
-                document.getElementById( 'counter' ).textContent = store.getState().value;
+                document.getElementById( 'counter' ).textContent = store.getState().counter.value;
+                document.getElementById( 'user-name-state' ).textContent = store.getState().user.name;
             };
 
             // show initial state of the store
