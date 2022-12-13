@@ -11,6 +11,7 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// use lazy() and dynamic import ONLY for a component that needs to be bundled separately and loaded lazily
 const Feedback = lazy( () => import( './pages/Feedback/Feedback' ) );
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                         <WorkshopsList />
                     </Route>
                     <Route path="/feedback">
+                        {/* use Suspense to wrap a lazily loaded component */}
                         <Suspense fallback={<div>Loading feedback page. Please wait...</div>}>
                             <Feedback />
                         </Suspense>
