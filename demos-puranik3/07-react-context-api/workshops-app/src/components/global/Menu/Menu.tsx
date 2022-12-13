@@ -1,10 +1,9 @@
-import { useContext } from 'react';
-import ThemeContext from '../../../contexts/ThemeContext';
+import { useTheme } from '../../../contexts/ThemeContext';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 
 const Menu = () => {
-    const { theme, toggle } = useContext( ThemeContext );
+    const { theme, toggle } = useTheme();
 
     return (
         <Navbar bg={theme} variant={theme} expand="lg">

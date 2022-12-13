@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export type Theme = 'light' | 'dark';
 
@@ -11,6 +11,8 @@ const ThemeContext = createContext<ThemeContextType>({
     theme: 'light',
     toggle() {}
 });
+
+export const useTheme = () => useContext( ThemeContext );
 
 // ThemeContext.Provider (used in the component with the state - here it is the App component)
 // ThemeContext.Consumer (only useful for consuming context in class components)
