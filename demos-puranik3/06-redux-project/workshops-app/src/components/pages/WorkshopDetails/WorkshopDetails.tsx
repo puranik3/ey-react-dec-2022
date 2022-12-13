@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { Route, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import SessionsList from './SessionsList/SessionsList';
 import AddSession from './AddSession/AddSession';
-import {
-    getWorkshopById
-} from '../../../services/workshops';
 import IWorkshop from '../../../models/IWorkshop';
+import { State } from '../../../store';
+import {
+    loading as loadingThunk
+} from '../../../actions/creators';
 
 type Params = {
     id: string
@@ -15,26 +17,21 @@ type Params = {
 const WorkshopDetails = () => {
     const { id } = useParams<Params>(); // { id: '2' }
 
-    const [workshop, setWorkshop] = useState<IWorkshop | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const dispatch = useDispatch();
+
+    const {
+        workshop,
+        loading,
+        error
+    } = useSelector<State, State["wd"]>( state => state.wd )
 
     useEffect(
         () => {
-            const helper = async () => {
-                setLoading(true);
-
-                try {
-                    const workshop = await getWorkshopById( id );
-                    setWorkshop(workshop as any);
-                } catch (error) {
-                    setError(error as Error);
-                }
-
-                setLoading(false);
-            };
-
-            helper();
+            // we are dispatch a "function action".
+            // Thunk
+                // - will keep quiet if action is a normal object
+                // - will execute the function if action is a function
+            dispatch( loadingThunk( id ) as any );
         },
         [] // on page load
     );
