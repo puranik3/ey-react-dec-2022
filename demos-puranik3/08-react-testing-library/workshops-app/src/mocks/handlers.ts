@@ -31,7 +31,11 @@ const handlers = [
 
 // configure failure responses
 const errorHandlers = [
-    'To be done'
+    rest.get( `https://workshops-server.herokuapp.com/workshops`, ( req, res, ctx ) => {
+        return res(
+            ctx.status( 500 )
+        );
+    })
 ];
 
 export {

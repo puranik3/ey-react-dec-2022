@@ -84,7 +84,7 @@ const WorkshopsList = () => {
                 </div>
             )}
             {!loading && error && (
-                <div className="alert alert-danger">{error.message}</div>
+                <div className="alert alert-danger" data-testid="error-message">{error.message}</div>
             )}
             {!loading && !error && workshops?.length === 0 && (
                 <div className="alert alert-info">That's all folks!</div>
