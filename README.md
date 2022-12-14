@@ -12,6 +12,19 @@ https://vw-angular.s3.ap-south-1.amazonaws.com/index.html
         - Q. 7. 9, 10, 12, 13, 14
 
 ## Videos
+
+## Videos on React Testing Library
+- [01 - Workshops List | Shows the loading message](https://it-video-recording.s3.amazonaws.com/react-testing-library/01-workshops-list-shows-the-loading-message.mp4)
+- [02 - Setting up a mock server using MSW](https://it-video-recording.s3.amazonaws.com/react-testing-library/02-setting-up-a-mock-server-using-msw.mp4)
+- [03 - Workshops List | Shows the list of workshops on load](https://it-video-recording.s3.amazonaws.com/react-testing-library/03-workshops-list-shows-the-list-of-workshops-on-load.mp4)
+- [04 - Workshops List | Shows an error when list of workshops cannot be fetched](https://it-video-recording.s3.amazonaws.com/react-testing-library/04-workshops-list-shows-an-error-when-list-of-workshops-cannot-be-fetched.mp4)
+- [05 - Workshops List | Shows the next and previous page of workshops](https://it-video-recording.s3.amazonaws.com/react-testing-library/05-workshops-list-shows-the-next-and-previous-page-of-workshops.mp4)
+- [06 - Workshop Details | Shows the loading message](https://it-video-recording.s3.amazonaws.com/react-testing-library/06-workshop-details-shows-the-loading-message.mp4)
+- [07 - Workshop Details | Shows the details of workshop or shows an error](https://it-video-recording.s3.amazonaws.com/react-testing-library/07-workshop-details-shows-the-details-of-workshop-or-shows-an-error.mp4)
+- [08 - Sessions List | Loading tests](https://it-video-recording.s3.amazonaws.com/react-testing-library/08-sessions-list-loading-tests.mp4)
+- [09 - Sessions List | Voting up and down on a session works](https://it-video-recording.s3.amazonaws.com/react-testing-library/09-sessions-list-voting-up-and-down-on-a-session-works.mp4)
+
+## Video on Webpack
 - [Introduction to Webpack](https://corporate-trainings.s3.amazonaws.com/invatron/kh-invatron-react-jul-6-2020/webpack-getting-started.mp4)
 
 ## Quick quizzes on React

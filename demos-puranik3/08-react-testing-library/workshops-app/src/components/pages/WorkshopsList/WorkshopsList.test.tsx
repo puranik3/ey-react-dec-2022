@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import workshops from '../../../mocks/data/workshops';
 import server from '../../../mocks/server';
 import { errorHandlers } from '../../../mocks/handlers';
-
+import userEvent from '@testing-library/user-event';
 
 describe( 'WorkshopsList on load', () => {
     test( 'should show the spinner', () => {
@@ -48,5 +48,23 @@ describe( 'WorkshopsList on load', () => {
         const errorMessage = await screen.findByTestId( 'error-message' );
 
         expect( errorMessage ).toBeInTheDocument();
+    });
+});
+
+describe( 'WorkshopsList Pagination', () => {
+    test( 'should try fetch the workshops from the backend and an error message on failure', async () => {
+        render(
+            <BrowserRouter>
+                <WorkshopsList />
+            </BrowserRouter>
+        );
+
+        const nextButton = screen.getByRole( 'button', { name : 'Next' } );
+        userEvent.click( nextButton );
+
+        for( let i = 10; i < 12; i++ ) {
+            const workshopName = await screen.findByText( workshops[i].name );
+            expect( workshopName ).toBeInTheDocument();
+        }
     });
 });
