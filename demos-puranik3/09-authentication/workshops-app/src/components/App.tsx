@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Menu from "./global/Menu/Menu";
 import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 import WorkshopsList from "./pages/WorkshopsList/WorkshopsList";
 import WorkshopDetails from "./pages/WorkshopDetails/WorkshopDetails";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -24,6 +25,9 @@ function App() {
                     </Route>
                     <Route path="/workshops">
                         <WorkshopsList />
+                    </Route>
+                    <Route path="/login" exact>
+                        <Login />
                     </Route>
                     <Route path="/" exact>
                         <Home />

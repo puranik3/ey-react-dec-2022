@@ -44,6 +44,18 @@ const Menu = () => {
                             Feedback
                         </Nav.Link>
                     </Nav>
+                    <Nav
+                        className="my-2 my-lg-0"
+                    >
+                        <Nav.Link
+                            as={NavLink}
+                            to="/login"
+                            activeClassName="active"
+                            exact
+                        >
+                            Login
+                        </Nav.Link>
+                    </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
