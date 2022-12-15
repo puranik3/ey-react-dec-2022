@@ -2,10 +2,11 @@ import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { handleSubmit } from '../../../utils/form';
-import { login } from '../../../services/auth';
+import { useAuth } from '../../../services/auth';
 
 const Login = () => {
     const { push } = useHistory();
+    const { login } = useAuth();
 
     const emailRef = useRef<HTMLInputElement>( null );
     const passwordRef = useRef<HTMLInputElement>( null );

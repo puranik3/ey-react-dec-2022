@@ -1,9 +1,9 @@
 import { FormEvent } from 'react';
 
-const handleSubmit = ( handler : Function ) => {
+const handleSubmit = ( handler : Function, ...rest: any[] ) => {
     return ( event : FormEvent ) => {
         event.preventDefault();
-        handler();
+        handler( rest );
     }
 }
 
