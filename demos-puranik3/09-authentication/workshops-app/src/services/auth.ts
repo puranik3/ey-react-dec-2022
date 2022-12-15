@@ -21,9 +21,9 @@ const KEY_EMAIL = 'email';
 const KEY_ROLE = 'role';
 
 const useAuth = () => {
-    const [ token, setToken ] = useState( '' );
-    const [ email, setEmail ] = useState( '' );
-    const [ role, setRole ] = useState( '' );
+    const [ token, setToken ] = useState( localStorage.getItem( KEY_TOKEN ) || '' );
+    const [ email, setEmail ] = useState( localStorage.getItem( KEY_EMAIL ) || '' );
+    const [ role, setRole ] = useState( localStorage.getItem( KEY_ROLE ) || '' );
 
     const login = async ( credentials : ILoginRequest ) => {
         const response = await axios.post( `/login`, credentials );
@@ -46,11 +46,17 @@ const useAuth = () => {
         return response.data as ILoginResponse;
     };
 
+    // call it on App component useEffect( __, [] );
+    const getProfile = (  ) => {
+
+    };
+
     return {
         token,
         email,
         role,
-        login
+        login,
+        getProfile
     };
 };
 
