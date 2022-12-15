@@ -2,7 +2,7 @@ import axios from 'axios';
 import IWorkshop from '../models/IWorkshop';
 
 const getWorkshops = async ( _page : number ) => {
-    const response = await axios.get( `https://workshops-server.herokuapp.com/workshops`,
+    const response = await axios.get( `/workshops`,
         {
             params: {
                 // _page: _page

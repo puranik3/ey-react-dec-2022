@@ -109,6 +109,9 @@ http://workshops-server.herokuapp.com/workshops/2/sessions
 - [Updating context](https://reactjs.org/docs/context.html#updating-context-from-a-nested-component)
 - [Supporting internationalisation (i18n) in React](https://www.robinwieruch.de/react-internationalization)
 
+### Dynamic forms
+https://www.syncfusion.com/blogs/post/create-dynamic-forms-in-react-using-react-hook-forms.aspx
+
 ### Some options for form validations in React
 - [Article by Michael Ries](https://medium.com/code-monkey/client-side-form-validation-in-react-40e367de47ba)
 - [Formik](https://formik.org/)

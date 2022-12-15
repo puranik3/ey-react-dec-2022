@@ -38,8 +38,8 @@ __Note__:
 * The server can also be started in authenticated mode. In this mode, an authentication token must first be obtained by POSTing to the https://workshops-server.herokuapp.com/workshops API, the following object.
 ```
 {
-    "email": "email@exmaple.com",
-    "password": "password"
+    "email": "john.doe@example.com",
+    "password": "Password123#"
 }
 ```
 No other credentials are supported by the server.  

@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 import workshops from './data/workshops';
 
-// const { REACT_APP_API_BASE_URL } = process.env;
+const { REACT_APP_API_BASE_URL } = process.env;
 
 // configure successful responses
 const handlers = [
-    rest.get( `https://workshops-server.herokuapp.com/workshops`, ( req, res, ctx ) => {
+    rest.get( `${REACT_APP_API_BASE_URL}/workshops`, ( req, res, ctx ) => {
         const _page = req.url.searchParams.get( '_page' );
         
         if( _page === '1' ) {
@@ -31,7 +31,7 @@ const handlers = [
 
 // configure failure responses
 const errorHandlers = [
-    rest.get( `https://workshops-server.herokuapp.com/workshops`, ( req, res, ctx ) => {
+    rest.get( `${REACT_APP_API_BASE_URL}/workshops`, ( req, res, ctx ) => {
         return res(
             ctx.status( 500 )
         );

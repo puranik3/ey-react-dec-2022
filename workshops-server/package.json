@@ -6,17 +6,13 @@
     "scripts": {
         "start": "npm run noauth",
         "noauth": "node server-not-authenticated.js",
-        "auth": "node server-authenticated.js",
-        "cookie": "node server-authenticated-cookie.js",
-        "sockets": "node server-web-sockets.js",
-        "sockets:backup": "node server-web-sockets.backup.js"
+        "auth": "node server-authenticated.js"
     },
     "author": "Prashanth Puranik",
     "license": "ISC",
     "dependencies": {
         "axios": "^0.19.2",
-        "cookie-parser": "^1.4.5",
         "json-server": "^0.12.1",
-        "socket.io": "^2.3.0"
+        "multer": "^1.4.2"
     }
 }

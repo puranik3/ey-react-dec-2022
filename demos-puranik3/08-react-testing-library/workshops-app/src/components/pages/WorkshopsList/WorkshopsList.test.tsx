@@ -6,6 +6,8 @@ import server from '../../../mocks/server';
 import { errorHandlers } from '../../../mocks/handlers';
 import userEvent from '@testing-library/user-event';
 
+import '../../../services/configureAxios';
+
 describe( 'WorkshopsList on load', () => {
     test( 'should show the spinner', () => {
         render(
@@ -52,7 +54,7 @@ describe( 'WorkshopsList on load', () => {
 });
 
 describe( 'WorkshopsList Pagination', () => {
-    test( 'should try fetch the workshops from the backend and an error message on failure', async () => {
+    test( 'should work on click of next button (navigates to the next page)', async () => {
         render(
             <BrowserRouter>
                 <WorkshopsList />
