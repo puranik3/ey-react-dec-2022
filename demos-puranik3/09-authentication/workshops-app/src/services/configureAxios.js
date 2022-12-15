@@ -11,4 +11,6 @@ axios.defaults.headers = {
 };
 
 // to setup request and response interception
-// axios.interceptors
+// axios.interceptors.request.use(() => {
+
+// })

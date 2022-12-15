@@ -9,35 +9,38 @@ import WorkshopsList from "./pages/WorkshopsList/WorkshopsList";
 import WorkshopDetails from "./pages/WorkshopDetails/WorkshopDetails";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from '../services/auth';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     return (
-        <div>
-            <Menu />
-            <ToastContainer />
+        <AuthProvider>
+            <div>
+                <Menu />
+                <ToastContainer />
 
-            <Container className="my-4">
-                <Switch>
-                    <Route path="/workshops/:id">
-                        <WorkshopDetails />
-                    </Route>
-                    <Route path="/workshops">
-                        <WorkshopsList />
-                    </Route>
-                    <Route path="/login" exact>
-                        <Login />
-                    </Route>
-                    <Route path="/" exact>
-                        <Home />
-                    </Route>
-                    <Route path="**">
-                        <PageNotFound />
-                    </Route>
-                </Switch>
-            </Container>
-        </div>
+                <Container className="my-4">
+                    <Switch>
+                        <Route path="/workshops/:id">
+                            <WorkshopDetails />
+                        </Route>
+                        <Route path="/workshops">
+                            <WorkshopsList />
+                        </Route>
+                        <Route path="/login" exact>
+                            <Login />
+                        </Route>
+                        <Route path="/" exact>
+                            <Home />
+                        </Route>
+                        <Route path="**">
+                            <PageNotFound />
+                        </Route>
+                    </Switch>
+                </Container>
+            </div>
+        </AuthProvider>
     );
 }
 
