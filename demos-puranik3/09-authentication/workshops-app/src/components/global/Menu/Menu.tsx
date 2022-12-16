@@ -37,22 +37,27 @@ const Menu = () => {
                         >
                             Home
                         </Nav.Link>
-                        <Nav.Link
-                            as={NavLink}
-                            to="/workshops"
-                            activeClassName="active"
-                            exact
-                        >
-                            List of workshops
-                        </Nav.Link>
-                        <Nav.Link
-                            as={NavLink}
-                            to="/feedback"
-                            activeClassName="active"
-                            exact
-                        >
-                            Feedback
-                        </Nav.Link>
+                        {
+                            email !== '' && 
+                            <>
+                                <Nav.Link
+                                    as={NavLink}
+                                    to="/workshops"
+                                    activeClassName="active"
+                                    exact
+                                >
+                                    List of workshops
+                                </Nav.Link>
+                                <Nav.Link
+                                    as={NavLink}
+                                    to="/feedback"
+                                    activeClassName="active"
+                                    exact
+                                >
+                                    Feedback
+                                </Nav.Link>
+                            </>
+                        }
                     </Nav>
                     {
                         email === '' ? (

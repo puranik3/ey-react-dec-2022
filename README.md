@@ -110,9 +110,12 @@ http://workshops-server.herokuapp.com/workshops/2/sessions
 - [Supporting internationalisation (i18n) in React](https://www.robinwieruch.de/react-internationalization)
 
 ### Dynamic forms
-[Create Dynamic Forms in React Using React Hook Forms, Prashant Yadav](https://www.syncfusion.com/blogs/post/create-dynamic-forms-in-react-using-react-hook-forms.aspx)
-[V6 - React Hook Form - building dynamic form (Field Array), Beier Luo](https://www.youtube.com/watch?v=LhIvi4XHIco)
-[CREATING DYNAMIC FORMS WITH REACT HOOKS, Aaron Powell](https://www.aaron-powell.com/posts/2020-12-10-dynamic-forms-with-react-hooks/)
+- [Create Dynamic Forms in React Using React Hook Forms, Prashant Yadav](https://www.syncfusion.com/blogs/post/create-dynamic-forms-in-react-using-react-hook-forms.aspx)
+- [V6 - React Hook Form - building dynamic form (Field Array), Beier Luo](https://www.youtube.com/watch?v=LhIvi4XHIco)
+- [CREATING DYNAMIC FORMS WITH REACT HOOKS, Aaron Powell](https://www.aaron-powell.com/posts/2020-12-10-dynamic-forms-with-react-hooks/)
+
+### Deploying React apps
+- https://create-react-app.dev/docs/deployment
 
 ### Some options for form validations in React
 - [Article by Michael Ries](https://medium.com/code-monkey/client-side-form-validation-in-react-40e367de47ba)

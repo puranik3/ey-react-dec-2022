@@ -1,6 +1,7 @@
 // It was necessary to import React till React v17
 // import React from 'react';
 import { Route, Switch } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
 import { Container } from "react-bootstrap";
 import Menu from "./global/Menu/Menu";
 import Home from "./pages/Home/Home";
@@ -22,12 +23,12 @@ function App() {
 
                 <Container className="my-4">
                     <Switch>
-                        <Route path="/workshops/:id">
+                        <PrivateRoute path="/workshops/:id" roles={[ 'admin' ]}>
                             <WorkshopDetails />
-                        </Route>
-                        <Route path="/workshops">
+                        </PrivateRoute>
+                        <PrivateRoute path="/workshops" roles={[ 'admin', 'general' ]}>
                             <WorkshopsList />
-                        </Route>
+                        </PrivateRoute>
                         <Route path="/login" exact>
                             <Login />
                         </Route>

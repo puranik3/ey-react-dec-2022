@@ -28,10 +28,10 @@ const Login = () => {
     return (
         <form onSubmit={handleSubmit(doLogin)}>
             <div className='form-group my-2'>
-                <input type="email" placeholder="Your email" ref={emailRef} defaultValue="john.doe@example.com" />
+                <input type="email" placeholder="Your email" ref={emailRef} />
             </div>
             <div className='form-group my-2'>
-                <input type="password" ref={passwordRef} defaultValue="Password123#" />
+                <input type="password" ref={passwordRef} />
             </div>
             <button className='btn btn-primary'>Login</button>
         </form>
